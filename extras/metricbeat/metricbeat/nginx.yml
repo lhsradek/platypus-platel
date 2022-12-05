@@ -8,7 +8,7 @@
 
   # Nginx hosts
   hosts: 
-    - "http://weblhs"
+    - "http://webplatel"
 
   # Path to server status. Default nginx_status
   server_status_path: "nginx_status"

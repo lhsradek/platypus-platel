@@ -13,7 +13,7 @@
     hostname: "apm-server.${APP_HOST}.${INT_NETWORK}"
     networks:
       # for traefik
-      # - default
+      - default
       # local network:
       - intnet
     ports:
@@ -42,11 +42,11 @@
       - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-apm-server
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-#     labels:
-#       - "traefik.enable=true"
-#       - "traefik.http.routers.apm-server-${APP_ID}.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
-#       - "traefik.http.routers.apm-server-${APP_ID}.service=apm-server-${APP_ID}"
-#       - "traefik.http.routers.apm-server-${APP_ID}.entrypoints=https"
-#       - "traefik.http.routers.apm-server-${APP_ID}.tls=true"
-#       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.port=8200"
-#       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.scheme=http"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apm-server-${APP_ID}-public.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
+      - "traefik.http.routers.apm-server-${APP_ID}-public.service=apm-server-${APP_ID}"
+      - "traefik.http.routers.apm-server-${APP_ID}-public.entrypoints=http"
+      - "traefik.http.routers.apm-server-${APP_ID}-public.tls=false"
+      - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.port=8200"
+      - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.scheme=http"

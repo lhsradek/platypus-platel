@@ -7,7 +7,8 @@
   #  - process
   period: 10s
   hosts: 
-    - "https://${APP_HOST}.${APP_NET}:443"
+    - "http://webplatel"
+    # - "http://${APP_HOST}.${APP_NET}"
   status_path: "/status"
   ssl:
     enabled: true
