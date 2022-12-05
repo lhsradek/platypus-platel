@@ -42,11 +42,11 @@
       - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-apm-server
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-   labels:
-     - "traefik.enable=true"
-     - "traefik.http.routers.apm-server-public.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
-     - "traefik.http.routers.apm-server-public.service=apm-server-${APP_ID}"
-     - "traefik.http.routers.apm-server-public.entrypoints=http"
-     - "traefik.http.routers.apm-server-public.tls=false"
-     - "traefik.http.services.apm-server.loadbalancer.server.port=8200"
-     - "traefik.http.services.apm-server.loadbalancer.server.scheme=http"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.apm-server-public.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
+#      - "traefik.http.routers.apm-server-public.service=apm-server-${APP_ID}"
+#      - "traefik.http.routers.apm-server-public.entrypoints=http"
+#      - "traefik.http.routers.apm-server-public.tls=false"
+#      - "traefik.http.services.apm-server.loadbalancer.server.port=8200"
+#      - "traefik.http.services.apm-server.loadbalancer.server.scheme=http"
