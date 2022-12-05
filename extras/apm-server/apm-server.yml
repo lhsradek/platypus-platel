@@ -1,0 +1,81 @@
+######################### APM Server Configuration #########################
+
+################################ APM Server ################################
+
+apm-server:
+  host: "0.0.0.0"
+
+  #---------------------------- APM Server - RUM Real User Monitoring ----------------------------
+
+  # Enable Real User Monitoring (RUM) Support. By default RUM is disabled.
+  # RUM does not support token based authorization. Enabled RUM endpoints will not require any authorization
+  # token configured for other endpoints.
+  rum:
+    enabled: true
+    output:
+      elasticsearch:
+        hosts: 
+          - "https://es01.${APP_HOST}.${APP_NET}:9200"
+        protocol: "https"
+        #api_key: "id:api_key"
+        # username: "apm_system"
+        username: "${ELASTICSEARCH_USERNAME}"
+        password: "${ELASTICSEARCH_PASSWORD}"
+        ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+        ssl.verification_mode: "${VERIFICATION_MODE}"
+      # Index pattern in which to search for source maps, when fetching source maps from Elasticsearch.
+        index_pattern: "apm-*-sourcemap*"
+
+#---------------------------- APM Server - Agent Configuration ----------------------------
+  kibana:
+    enabled: true
+    host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
+    protocol: "https"
+    # api_key: "${AGENT_API_KEY}"
+    # username: "apm_system"
+    username: "${ELASTICSEARCH_USERNAME}"
+    password: "${ELASTICSEARCH_PASSWORD}"
+    ssl.enabled: true
+    ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    ssl.verification_mode: "${VERIFICATION_MODE}"
+
+#================================ Outputs =================================
+
+#output.console:
+
+#-------------------------- Elasticsearch output --------------------------
+output.elasticsearch:
+  enabled: true
+  hosts: 
+    - "https://es01.${APP_HOST}.${APP_NET}:9200"
+    - "https://es02.${APP_HOST}.${APP_NET}:9201"
+  protocol: "https"
+  # username: "apm_system"
+  username: "${ELASTICSEARCH_USERNAME}"
+  password: "${ELASTICSEARCH_PASSWORD}"
+  ssl.enabled: true
+  ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+  ssl.verification_mode: "${VERIFICATION_MODE}"
+
+#=============================== HTTP Endpoint ===============================
+
+http.enabled: true
+http.host: "0.0.0.0"
+http.port: 5066
+
+#============================= Monitoring =============================
+
+monitoring:
+  enabled: true
+  cluster_uuid: "${CLUSTER_UUID}"
+
+  elasticsearch:
+    username: "${ELASTICSEARCH_USERNAME}"
+    password: "${ELASTICSEARCH_PASSWORD}"
+    hosts: 
+      - "https://es01.${APP_HOST}.${APP_NET}:9200"
+      - "https://es02.${APP_HOST}.${APP_NET}:9201"
+    protocol: "https"
+    ssl.enabled: true
+    ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    ssl.verification_mode: "${VERIFICATION_MODE}"

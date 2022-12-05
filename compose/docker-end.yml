@@ -1,0 +1,23 @@
+
+volumes:
+  apm:
+    external: true
+    name: "${APP_ID}-apm"
+  esdata01:
+    external: true
+    name: "${APP_ID}-es01"
+  esdata02:
+    external: true
+    name: "${APP_ID}-es02"
+  filebeat:
+    external: true
+    name: "${APP_ID}-filebeat"
+  kibana:
+    external: true
+    name: "${APP_ID}-kibana"
+  metricbeat:
+    external: true
+    name: "${APP_ID}-metricbeat"
+  logstash:
+    external: true
+    name: "${APP_ID}-logstash"

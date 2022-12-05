@@ -1,0 +1,101 @@
+# Kibana configuration for docker target
+
+server:
+  host: "0.0.0.0"
+  shutdownTimeout: "5s"
+  socketTimeout: "240000"
+  publicBaseUrl: "https://kibana.${APP_HOST}.${APP_NET}:5601"
+  ssl:
+    enabled: true
+    certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    certificate: "${ELASTICSEARCH_SSL_SERVER_CERT}" 
+    key: "${ELASTICSEARCH_SSL_SERVER_CERT_KEY}"
+
+monitoring:
+  # https://www.elastic.co/guide/en/kibana/master/monitoring-settings-kb.html
+  # https://www.elastic.co/guide/en/kibana/master/monitoring-metricbeat.html
+  # https://www.elastic.co/guide/en/kibana/master/monitor-troubleshooting.html
+  ui:
+    enabled: true
+    ccs.enabled: false
+    container:
+      elasticsearch.enabled: true
+      logstash.enabled: true
+    elasticsearch:
+      hosts: 
+        - "https://es01.${APP_HOST}.${APP_NET}:9200"
+        - "https://es02.${APP_HOST}.${APP_NET}:9201"
+      username: "${ELASTICSEARCH_USERNAME}"
+      password: "${ELASTICSEARCH_PASSWORD}"
+      ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      requestTimeout: 240000
+  kibana.collection.enabled: false
+
+# https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
+elasticsearch:
+  hosts: 
+    - "https://es01.${APP_HOST}.${APP_NET}:9200"
+    - "https://es02.${APP_HOST}.${APP_NET}:9201"
+  username: "${ELASTICSEARCH_USERNAME}"
+  password: "${ELASTICSEARCH_PASSWORD}"
+  ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+  requestTimeout: 240000
+
+xpack:
+  reporting:
+    kibanaServer.hostname: "kibana"
+    roles.enabled: false
+    encryptionKey: 8de551ca1432f0dcf3ad2908472562b1
+  security:
+    encryptionKey: 363792db7b8cf9581c6cbdddbb8ff95f
+    session.idleTimeout: 24h
+  encryptedSavedObjects:
+    encryptionKey: 97aa4816075f95e8d51bac9159574a19
+  task_manager:
+    poll_interval: 180000
+    max_workers: 2
+  apm.serviceMapEnabled: false
+  fleet:
+    packages:
+      - name: elastic_agent
+        version: latest
+      - name: apm
+        version: latest
+      - name: system
+        version: latest
+      - name: docker
+        version: latest
+      - name: traefik
+        version: latest
+      - name: log
+        version: latest
+      - name: logstash
+        version: latest
+      
+# https://www.elastic.co/guide/en/kibana/current/logging-configuration.html
+logging:
+  appenders:
+    file:
+      type: file
+      fileName: /usr/share/kibana/logs/kibana.log
+      layout:
+        type: pattern
+        pattern: "[%date][%level][%logger][%meta] %message"
+  root:
+    appenders: [default, file]
+    level: info
+  loggers:
+    - name: plugins
+      appenders: [default, file]
+      level: info
+    - name: optimize
+      appenders: [default, file]
+      level: info
+    - name: server
+      level: fatal
+    - name: telemetry
+      appenders: [default, file]
+      level: info
+    - name: metrics.ops
+      appenders: [default, file]
+      level: info
