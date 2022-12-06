@@ -16,9 +16,9 @@
       - default
       # local network:
       - intnet
-    # ports:
+    ports:
     # for external apps as traefik or other apps without apm in container
-    #  - ${APM_PORT}:8200
+      - ${APM_PORT}:8200
     #  - 5066:5066
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
