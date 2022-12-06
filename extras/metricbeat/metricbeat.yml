@@ -83,6 +83,7 @@ setup:
 
   elasticsearch:
     hosts: 
+      # - "https://es01:9200"
       - "https://es01.${APP_HOST}.${APP_NET}:9200"
       # - "https://es02.${APP_HOST}.${APP_NET}:9201"
     protocol: "https"
@@ -94,6 +95,7 @@ setup:
       verification_mode: "${VERIFICATION_MODE}"
 
   kibana:
+    # host: "https://kibana:5601"
     host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
     # api_key: ${AGENT_API_KEY}
     username: "${ELASTICSEARCH_USERNAME}"
