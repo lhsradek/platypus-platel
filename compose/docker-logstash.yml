@@ -16,11 +16,11 @@
       - intnet
     ports:
       # syslog access pipeline
-      - 5000:5000/udp
-      - 5000:5000/tcp
+      # - 5000:5000/udp
+      # - 5000:5000/tcp
       # syslog error pipeline
-      - 5001:5001/udp
-      - 5001:5001/tcp
+      # - 5001:5001/udp
+      # - 5001:5001/tcp
       # beat pipeline
       - ${LOGSTASH_PORT}:5044
       # elastic-agent pipeline
