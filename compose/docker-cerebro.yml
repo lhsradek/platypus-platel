@@ -18,6 +18,11 @@
       - intnet
     # ports:
     #  - 9000:9000
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: ${CEREBRO_OPTS}
     volumes:
       - ./certs:/opt/cerebro/conf/certs:ro
       - ./extras/cerebro/application.conf:/opt/cerebro/conf/application.conf
@@ -37,7 +42,6 @@
       - ELASTIC_APM_SERVER_URL=${ELASTIC_APM_SERVER_URL}
       - ELASTIC_APM_SERVICE_NAME=${APP-HOST}-${INT_NETWORK}
       - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-cerebro
-      - JAVA_OPTS=${CEREBRO_JAVA_OPTS}
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=${DOCKER_NETWORK}"
