@@ -4,9 +4,13 @@
     hostname: "es01.${APP_HOST}.${INT_NETWORK}"
     networks:
       # for traefik:
-      # - default
+      # default:
+      #   aliases:
+      #     - es01.${APP_HOST}.${INT_NETWORK}
       # local network:
-      - intnet
+      intnet:
+        aliases:
+          - es01.${APP_HOST}.${INT_NETWORK}
     ports:
       - ${ES_PORT}:9200
       # - 9300:9300
@@ -35,7 +39,8 @@
       - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-es01
       - LICENSE=${LICENSE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
-#     labels:
+#    labels:
+#       - "traefik.enable=false"
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"
 #       - "traefik.http.routers.es01-${APP_ID}-public.rule=Host(`es01.eliasondrej.com`)"

@@ -4,8 +4,7 @@
 #
   filebeat:
     depends_on:
-      es02:
-      # logstash:
+      logstash:
         condition: service_healthy
     # Ubuntu - filebeat
     image: docker.elastic.co/beats/filebeat:${STACK_VERSION}
@@ -17,7 +16,7 @@
       #  - default
       # local network:
       - intnet
-    #  user: root
+    user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro

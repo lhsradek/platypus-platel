@@ -13,8 +13,10 @@
     hostname: "logstash.${APP_HOST}.${INT_NETWORK}"
     networks:
       # local network:
-      - intnet
-    ports:
+      intnet:
+        aliases:
+          - logstash.{APP_HOST}.${INT_NETWORK}
+    #ports:
       # syslog access pipeline
       # - 5000:5000/udp
       # - 5000:5000/tcp
@@ -22,9 +24,9 @@
       # - 5001:5001/udp
       # - 5001:5001/tcp
       # beat pipeline
-      - ${LOGSTASH_PORT}:5044
+      # - ${LOGSTASH_PORT}:5044
       # elastic-agent pipeline
-      - 5045:5045
+      # - 5045:5045
       # metrics
       # - 9600:9600
     volumes:
