@@ -2,3 +2,4 @@
 docker-compose*
 logs/
 certs/
+/extras/elastic-agent/elastic-agent-*
