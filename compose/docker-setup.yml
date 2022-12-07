@@ -62,11 +62,25 @@
           "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: cerebro.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: filebeat.${APP_HOST}.${INT_NETWORK}\n"\
           "    dns:\n"\
           "      - localhost\n"\
-          "      - cerebro\n"\
-          "      - cerebro.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - filebeat\n"\
+          "      - filebeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "  - name: metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - metricbeat\n"\
+          "      - metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "  - name: apm-server.${APP_HOST}.${INT_NETWORK}\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - apm-server\n"\
+          "      - apm-seerver${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           > config/certs/instances.yml;
