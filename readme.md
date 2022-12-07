@@ -60,6 +60,7 @@ Creating platel-logstash  ... done
 | [logstash](https://hub.docker.com/_/logstash)         | 8.5.2      | 746MB       |
 | docker.elastic.co/apm/apm-server                      | 8.5.2      | 149MB       |
 | docker.elastic.co/beats/filebeat                      | 8.5.2      | 281MB       |
+| docker.elastic.co/beats/metricbeat                    | 8.5.2      | 316MB       |
 
 -----
 
@@ -69,9 +70,11 @@ Creating platel-logstash  ... done
 | elasticsearch        | 9200/tcp, 9300/tcp     | platel-es01        | ```es01.pt.platel```                 |
 | elasticsearch        | 9201/tcp, 9301/tcp     | platel-es02        | ```es02.pt.platel```                 | 
 | kibana               | 5601/tcp               | platel-kibana      | ```kibana.pt.platel```               |
+| logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.pt.platel```             | *
 | apm-server           | 5066/tcp, 8200/tcp     | platel-apm-server  | ```apm.pt.platel```                  | *
 | filebeat             | 5066/tcp               | platel-filebeat    | ```filebeat.pt.platel```             | *
-| logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.pt.platel```             | *
+| metricbeat           | 5066/tcp               | platel-metricbeat  | ```metricbeat.pt.platel```           | *
+
 
 -----
 
