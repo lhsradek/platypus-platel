@@ -14,7 +14,7 @@
     #  user: root
     networks:
       # for traefik:
-      # - default
+      - default
       # local network:
       - intnet
     user: root
