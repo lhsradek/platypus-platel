@@ -14,8 +14,6 @@
     networks:
       # for traefik:
       # default:
-      #   aliases:
-      #     - metricbeat.{APP_HOST}.${INT_NETWORK}
       # local network:
       intnet:
         aliases:
