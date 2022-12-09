@@ -9,9 +9,9 @@
       intnet:
         aliases:
           - es01.${APP_HOST}.${INT_NETWORK}
-    # ports:
-    #   - ${ES_PORT}:9200
-    #   # - 9300:9300
+    ports:
+      - ${ES_PORT}:9200
+      # - 9300:9300
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
