@@ -57,4 +57,9 @@ touch $rootPath/logs/nginx/php-error.log
 find $rootPath/logs -type d -exec chmod 777 \{\} \;;
 find $rootPath/logs -type f -exec chmod 666 \{\} \;;
 
-docker-compose ${ARGS} up -d
+if [[ ${RUNENV} == "logstash" ]]; then
+    docker start platel-logstash
+else
+    docker-compose ${ARGS} up -d
+fi
+

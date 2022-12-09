@@ -7,7 +7,7 @@
   #  - process
   period: 10s
   hosts: 
-    - "http://webplatel"
+    - "http://www.wordpress.local"
     # - "http://${APP_HOST}.${APP_NET}"
   status_path: "/status"
   ssl:

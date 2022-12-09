@@ -12,6 +12,9 @@ volumes:
   filebeat:
     external: true
     name: "${APP_ID}-filebeat"
+  heartbeat:
+    external: true
+    name: "${APP_ID}-heartbeat"
   kibana:
     external: true
     name: "${APP_ID}-kibana"

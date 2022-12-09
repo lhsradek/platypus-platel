@@ -13,10 +13,14 @@
     hostname: "metricbeat.${APP_HOST}.${INT_NETWORK}"
     #  user: root
     networks:
-      # for traefik:
-      - default
+     # for traefik:
+      default:
+        aliases:
+          - metricbeat.{APP_HOST}.${INT_NETWORK}
       # local network:
-      - intnet
+      intnet:
+        aliases:
+          - metricbeat.{APP_HOST}.${INT_NETWORK}
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

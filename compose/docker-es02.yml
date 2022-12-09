@@ -43,7 +43,6 @@
       - LICENSE=${LICENSE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
     labels:
-      - "traefik.enable=false"
       - "traefik.enable=true"
       - "traefik.docker.network=${DOCKER_NETWORK}"
       - "traefik.http.routers.es02-${APP_ID}-public.rule=Host(`es02.${APP_HOST}.${INT_NETWORK}`)"

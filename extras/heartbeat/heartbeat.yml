@@ -1,0 +1,126 @@
+###################### Heartbeat Configuration #######################
+
+http.enabled: true
+http.port: 5066
+http.host: "0.0.0.0"
+
+monitoring:
+  enabled: false
+  cluster_uuid: "${CLUSTER_UUID}"
+
+#   elasticsearch:
+#     username: "${ELASTICSEARCH_USERNAME}"
+#     password: "${ELASTICSEARCH_PASSWORD}"
+#     hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+#     protocol: "https"
+#     ssl.enabled: true
+#     ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+#     ssl.verification_mode: "certificate"
+
+heartbeat.config.monitors:
+  # Directory + glob pattern to search for configuration files
+  path: ${path.config}/monitors.d/*.yml
+  # If enabled, heartbeat will periodically check the config.monitors path for changes
+  reload.enabled: false
+  # How often to check for changes
+  reload.period: 5s
+
+heartbeat.monitors:
+
+- type: http
+  schedule: '*/15 * * * * *'
+  id: http-service
+  name: HTTP Service
+  data_stream.namespace: default
+  service.name: heartbeat-http
+  username: '${ELASTICSEARCH_USERNAME}'
+  password: '${ELASTICSEARCH_PASSWORD}'
+  # api_key: ${AGENT_API_KEY}
+  check.response.status: [200]
+  tags: [web]
+  hosts:
+    # ELK
+    - https://es01.${APP_HOST}.${APP_NET}:9200
+    - https://es02.${APP_HOST}.${APP_NET}:9201
+    - https://kibana.${APP_HOST}.${APP_NET}:5601/status
+    # logstash for finger print:
+    #- https://logstash.${APP_HOST}.${APP_NET}:5044
+  ssl:
+    certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
+    verification_mode: "none"
+    # verification_mode: "${VERIFICATION_MODE}"
+
+- type: tcp
+  schedule: '*/15 * * * * *'
+  id: tcp-service
+  name: TCP Service
+  data_stream.namespace: default
+  service.name: heartbeat-tcp
+  tags: [tcp]
+  hosts:
+    # - platypus-box_traefik_1.platypus-local-dev-network:80
+    - www.traefik.local:443
+    - logstash.${APP_HOST}.${APP_NET}:9600
+    # - apm-server.${APP_HOST}.${APP_NET}:5066
+    # - filebeat.${APP_HOST}.${APP_NET}:5066
+    # - heartbeat.${APP_HOST}.${APP_NET}:5066
+    # - metricbeat.${APP_HOST}.${APP_NET}:5066
+
+#  - type: icmp
+#   schedule: '*/15 * * * * *'
+#   id: icmp-service
+#   name: ICMP Service
+#   data_stream.namespace: default
+#   service.name: heartbeat-icmp
+#   tags: [icmp]
+#   hosts:
+#     - heartbeat.${APP_HOST}.${APP_NET}
+
+heartbeat.scheduler:
+  limit: 2
+heartbeat.jobs:
+  http:
+    limit: 3
+  browser:
+    limit: 2    
+
+processors:
+  - add_docker_metadata: ~
+  # - add_cloud_metadata: ~
+  # - add_kubernetes_metadata: ~
+  # https://www.elastic.co/guide/en/beats/heartbeat/current/add-observer-metadata.html
+  - add_observer_metadata:
+      cache.ttl: 5m
+      geo:
+        name: KnO
+        location: 50.3871, -13.17379
+        continent_name: Europe
+        country_iso_code: CZE
+        region_name: Czech Republic
+        region_iso_code: CZ-422
+        city_name: Klášterec nad Ohří
+  # - add_tags:
+  #   tags: ["${STAGE}"]
+  #   target: "environment"
+
+output:
+  elasticsearch:
+    hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+    protocol: "https"
+    username: '${ELASTICSEARCH_USERNAME}'
+    password: '${ELASTICSEARCH_PASSWORD}'
+    ssl:
+      enabled: true
+      certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
+      verification_mode: "${VERIFICATION_MODE}"
+   
+setup:
+  ilm.overwrite: true
+  kibana:
+    host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
+    username: '${ELASTICSEARCH_USERNAME}'
+    password: '${ELASTICSEARCH_PASSWORD}'
+    ssl:
+      enabled: true
+      certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
+      verification_mode: "${VERIFICATION_MODE}"

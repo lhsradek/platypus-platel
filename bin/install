@@ -22,7 +22,7 @@ if [[ -z "$RUNENV" ]]; then
 fi
 
 echo "================= MAKE VOLUME ================="
-for NAME in apm es01 es02 filebeat kibana logstash metricbeat; do
+for NAME in apm es01 es02 filebeat heartbeat kibana logstash metricbeat; do
     if !(docker volume inspect "platel-${NAME}" >/dev/null 2>&1); then
         echo "create:"
         docker volume create --name platel-${NAME}
