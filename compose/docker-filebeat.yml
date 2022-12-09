@@ -47,11 +47,6 @@
       - LOGSTASH_SERVER_CERT=/usr/share/filebeat/certs/logstash.${HOST_NICK}.${INT_NETWORK}/logstash.${HOST_NICK}.${INT_NETWORK}.crt
       - LOGSTASH_SERVER_CERT_KEY=/usr/share/filebeat/certs/logstash.${HOST_NICK}.${INT_NETWORK}/logstash.${HOST_NICK}.${INT_NETWORK}.key
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-      #  - ELASTIC_APM_API_KEY=${ELASTIC_APM_API_KEY}
-      #  - ELASTIC_APM_ENVIRONMENT=${STAGE}
-      #  - ELASTIC_APM_SERVER_URL=${ELASTIC_APM_SERVER_URL}
-      #  - ELASTIC_APM_SERVICE_NAME=${APP-HOST}-${INT_NETWORK}
-      #  - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-filebeat
 #     labels:
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"

@@ -42,7 +42,6 @@ heartbeat.monitors:
     # ELK
     - https://es01.${APP_HOST}.${APP_NET}:9200
     - https://es02.${APP_HOST}.${APP_NET}:9201
-    - https://kibana.${APP_HOST}.${APP_NET}:5601/status
     # logstash for finger print:
     #- https://logstash.${APP_HOST}.${APP_NET}:5044
   ssl:
@@ -58,11 +57,10 @@ heartbeat.monitors:
   service.name: heartbeat-tcp
   tags: [tcp]
   hosts:
-    # - platypus-box_traefik_1.platypus-local-dev-network:80
-    - www.traefik.local:443
     - logstash.${APP_HOST}.${APP_NET}:9600
-    # - apm-server.${APP_HOST}.${APP_NET}:5066
+    - kibana.${APP_HOST}.${APP_NET}:5601
     # - filebeat.${APP_HOST}.${APP_NET}:5066
+    # - apm-server.${APP_HOST}.${APP_NET}:5066
     # - heartbeat.${APP_HOST}.${APP_NET}:5066
     # - metricbeat.${APP_HOST}.${APP_NET}:5066
 
