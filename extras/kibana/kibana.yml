@@ -18,25 +18,21 @@ monitoring:
   ui:
     enabled: true
     ccs.enabled: false
-    # container:
-    #   elasticsearch.enabled: true
-    #   logstash.enabled: true
-    elasticsearch:
-      hosts: 
-        - "https://es01.${APP_HOST}.${APP_NET}:9200"
-        - "https://es02.${APP_HOST}.${APP_NET}:9201"
-      username: "${ELASTICSEARCH_USERNAME}"
-      password: "${ELASTICSEARCH_PASSWORD}"
-      ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      requestTimeout: 240000
+    container:
+      elasticsearch.enabled: true
+      logstash.enabled: true
+    # elasticsearch:
+    #   hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+    #   username: "${ELASTICSEARCH_USERNAME}"
+    #   password: "${ELASTICSEARCH_PASSWORD}"
+    #   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    #   requestTimeout: 240000
   kibana.collection.enabled: false
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
   hosts: 
-    - "https://es01:9200"
-    - "https://es02:9201"
-    # - "https://es01.${APP_HOST}.${APP_NET}:9200"
+    - "https://es01.${APP_HOST}.${APP_NET}:9200"
     # - "https://es02.${APP_HOST}.${APP_NET}:9201"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
