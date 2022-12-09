@@ -39,6 +39,7 @@
           "      - localhost\n"\
           "      - es01\n"\
           "      - es01.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - es01.eliasondrej.com\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           "  - name: es02.${APP_HOST}.${INT_NETWORK}\n"\
@@ -60,6 +61,7 @@
           "      - localhost\n"\
           "      - kibana\n"\
           "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - kibana.eliasondrej.com\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           "  - name: filebeat.${APP_HOST}.${INT_NETWORK}\n"\
