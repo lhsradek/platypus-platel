@@ -56,8 +56,7 @@
           "  - name: kibana\n"\
           "    dns:\n"\
           "      - kibana\n"\
-          "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
-          "      - ${KIBANA_HOST}\n"\
+          "      - ${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.6\n"\
           "      - ${ES_IP}\n"\

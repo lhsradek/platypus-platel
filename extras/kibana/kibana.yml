@@ -4,7 +4,7 @@ server:
   host: "0.0.0.0"
   shutdownTimeout: "5s"
   socketTimeout: "240000"
-  publicBaseUrl: "https://${KIBANA_HOST}:443"
+  publicBaseUrl: "https://${KIBANA_HOST}:5601"
   port: 5601
   ssl:
     enabled: true

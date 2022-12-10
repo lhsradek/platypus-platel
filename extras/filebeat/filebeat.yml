@@ -53,7 +53,7 @@ setup:
       verification_mode: "${VERIFICATION_MODE}"
   
   kibana:
-    host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
+    host: "https://kibana.${APP_NET}:5601"
     username: '${ELASTICSEARCH_USERNAME}'
     password: '${ELASTICSEARCH_PASSWORD}'
     protocol: "https"
