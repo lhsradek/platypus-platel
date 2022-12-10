@@ -44,7 +44,6 @@
       - NODE_OPTIONS=${KIBANA_NODE_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - KIBANA_HOST=${KIBANA_HOST}
-      - ES_NET=${ES_NET}
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=${DOCKER_NETWORK}"
