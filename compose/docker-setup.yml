@@ -59,6 +59,7 @@
           "      - ${KIBANA_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
+          "      - 135.125.191.66\n"\
           "  - name: filebeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
