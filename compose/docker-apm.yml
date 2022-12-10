@@ -17,9 +17,9 @@
       # local network:
       - intnet
     # for external apps as traefik or other apps without apm in container
-    # ports:
-    #   - ${APM_PORT}:8200
-    #   - 5066:5066
+    ports:
+      - ${APM_PORT}:8200
+      # - 5066:5066
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/usr/share/apm-server/certs
