@@ -7,10 +7,11 @@
     # see https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     container_name: "${APP_ID}-setup"
-    hostname: "setup.${INT_NETWORK}"
+    hostname: "setup"
     networks:
       # local network:
-      - intnet
+      intnet:
+        ipv4_address: ${ES_NET}.30
     volumes:
       - ./certs:/usr/share/elasticsearch/config/certs
     user: "0"
