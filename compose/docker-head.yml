@@ -10,9 +10,9 @@
 version: '3.9'
 
 networks:
-  # default:
-  #   external: true
-  #   name: ${DOCKER_NETWORK}
+  default:
+    external: true
+    name: ${DOCKER_NETWORK}
   intnet:
     external: false
     name: ${INT_NETWORK}

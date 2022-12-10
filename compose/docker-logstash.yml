@@ -10,32 +10,30 @@
     image: logstash:${STACK_VERSION}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-logstash"
-    hostname: "logstash.${APP_HOST}.${INT_NETWORK}"
+    hostname: "logstash"
     networks:
      # for traefik:
-      # default:
+      # - default
       # local network:
-      intnet:
-        aliases:
-          - logstash.{APP_HOST}.${INT_NETWORK}
-    ports:
+      - intnet
+    # ports:
     #   # syslog access pipeline
     #   - 5000:5000/udp
     #   - 5000:5000/tcp
     #   # syslog error pipeline
     #   - 5001:5001/udp
     #   - 5001:5001/tcp
-      # beat pipeline
-      - ${LOGSTASH_PORT}:5044
-      # elastic-agent pipeline
-      - 5045:5045
+    #   # beat pipeline
+    #   - ${LOGSTASH_PORT}:5044
+    #   # elastic-agent pipeline
+    #   - 5045:5045
     #   # metrics
     #   # - 9600:9600
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs/ca/ca.crt:/usr/share/logstash/config/certs/ca.crt
-      - ./certs/logstash.pt.platel/logstash.pt.platel.crt:/usr/share/logstash/config/certs/logstash.crt
-      - ./certs/logstash.pt.platel/logstash.pkcs8.key:/usr/share/logstash/config/certs/logstash.key
+      - ./certs/logstash/logstash.crt:/usr/share/logstash/config/certs/logstash.crt
+      - ./certs/logstash/logstash.pkcs8.key:/usr/share/logstash/config/certs/logstash.key
       - ./extras/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
       - ./extras/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./extras/logstash/beat.conf:/usr/share/logstash/pipeline/beat.conf
@@ -44,24 +42,16 @@
       - ./extras/logstash/syslog-error.conf:/usr/share/logstash/pipeline/syslog-error.conf
       - logstash:/usr/share/logstash
     environment:
-      - APP_ID=${APP_ID}
-      - APP_HOST=${APP_HOST}
-      - APP_NET=${INT_NETWORK}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTIC_SSL_CERTIFICATEAUTHORITY=/usr/share/logstash/config/certs/ca.crt
-      - LOGSTASH_USERNAME=${ELASTIC_USERNAME}
-      - LOGSTASH_PASSWORD=${ELASTIC_PASSWORD}
+      - LOGSTASH_USERNAME=${LOGSTASH_USERNAME}
+      - LOGSTASH_PASSWORD=${LOGSTASH_PASSWORD}
       - LS_JAVA_OPTS=${LS_JAVA_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - STACK_VERSION=${STACK_VERSION}
       - ELASTIC_USERNAME=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - ELASTIC_APM_ENVIRONMENT=${STAGE}
-      - ELASTIC_APM_API_KEY=${ELASTIC_APM_API_KEY}
-      - ELASTIC_APM_SERVER_URL=${ELASTIC_APM_SERVER_URL}
-      - ELASTIC_APM_SERVICE_NAME=${APP-HOST}-${INT_NETWORK}
-      - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-logstash
 #     labels:
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"
@@ -86,14 +76,14 @@
 #       - "traefik.udp.services.logstash-${APP_ID}-udp-error.loadbalancer.server.port=5001"
 #      
 #       - "traefik.tcp.routers.logstash-elastic.tls=true"
-#       - "traefik.tcp.routers.logstash-elastic.rule=HostSNI(`logstash.${APP_HOST}.${INT_NETWORK}`)"
+#       - "traefik.tcp.routers.logstash-elastic.rule=HostSNI(`logstash`)"
 #       - "traefik.tcp.routers.logstash-elastic.entrypoints=tcp-elastic"
 #       - "traefik.tcp.routers.logstash-elastic.tls.passthrough=true"
 #       - "traefik.tcp.routers.logstash-elastic.service=logstash-${APP_ID}-tcp-elastic"
 #       - "traefik.tcp.services.logstash-${APP_ID}-tcp-elastic.loadbalancer.server.port=5044"
 #      
 #       - "traefik.tcp.routers.logstash-beat.tls=true"
-#       - "traefik.tcp.routers.logstash-beat.rule=HostSNI(`logstash.${APP_HOST}.${INT_NETWORK}`)"
+#       - "traefik.tcp.routers.logstash-beat.rule=HostSNI(`logstash`)"
 #       - "traefik.tcp.routers.logstash-beat.entrypoints=tcp-beat"
 #       - "traefik.tcp.routers.logstash-beat.tls.passthrough=true"
 #       - "traefik.tcp.routers.logstash-beat.service=logstash-${APP_ID}-tcp-beat"

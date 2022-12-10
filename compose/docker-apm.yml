@@ -10,18 +10,16 @@
     image: docker.elastic.co/apm/apm-server:${STACK_VERSION}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-apm-server"
-    hostname: "apm-server.${APP_HOST}.${INT_NETWORK}"
+    hostname: "apm-server"
     networks:
       # for traefik
-      # default:
+      - default
       # local network:
-      intnet:
-        aliases:
-          - apm-server.{APP_HOST}.${INT_NETWORK}
+      - intnet
     # for external apps as traefik or other apps without apm in container
-    ports:
-      - ${APM_PORT}:8200
-    #  - 5066:5066
+    # ports:
+    #   - ${APM_PORT}:8200
+    #   - 5066:5066
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/usr/share/apm-server/certs
@@ -30,11 +28,6 @@
       - apm:/usr/share/apm-server
     environment:
       # - AGENT_API_KEY=${AGENT_API_KEY}
-      - APP_ID=${APP_ID}
-      - APP_HOST=${APP_HOST}
-      - APP_NET=${INT_NETWORK}
-      - APM_SERVER_CERT=/usr/share/apm-server/certs/apm-server.${APP_HOST}.${INT_NETWORK}/apm-server.${APP_HOST}.${INT_NETWORK}.crt
-      - APM_SERVER_CERT_KEY=/usr/share/apm-server/certs/apm-server.${APP_HOST}.${INT_NETWORK}/apm-server.${APP_HOST}.${INT_NETWORK}.key
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=elastic
@@ -47,12 +40,9 @@
 #     labels:
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"
-#       - "traefik.http.routers.apm-server-public.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
+#       - "traefik.http.routers.apm-server-public.rule=Host(`apm-server`)"
 #       - "traefik.http.routers.apm-server-public.service=apm-server-${APP_ID}"
 #       - "traefik.http.routers.apm-server-public.entrypoints=https"
 #       - "traefik.http.routers.apm-server-public.tls=true"
-#       # - "traefik.http.routers.apm-server-public.middlewares=apm-server-${APP_ID}@docker"
-#       # - "traefik.http.middlewares.apm-server-${APP_ID}.redirectscheme.scheme=https"
-#       # - "traefik.http.middlewares.apm-server-${APP_ID}.redirectscheme.port=8200"
 #       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.port=8200"
 #       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.scheme=http"

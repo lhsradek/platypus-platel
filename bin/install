@@ -36,8 +36,6 @@ if [[ -f "$rootPath/docker-compose.$RUNENV.yml" ]]; then
   echo "Nothing to do, docker-compose.$RUNENV.yml exist. Remove it first!"
   exit 1;
 else
-  INT_NETWORK=$(read_var INT_NETWORK .env)
-  APP_HOST=$(read_var APP_HOST .env)
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
@@ -47,8 +45,7 @@ else
   echo "================= START INSTALL ================"
   ${scriptPath}/start
   echo
-  ELASTIC_PASSWORD=$(read_var ELASTIC_PASSWORD .env)
-  echo "Use 'curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01.${APP_HOST}.${INT_NETWORK}:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit."
+  echo "Use 'curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit."
   echo
   echo "Set CLUSTER-UUID to '.env' and start 'bin/setup'"
   echo

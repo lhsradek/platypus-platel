@@ -9,15 +9,6 @@ monitoring:
   enabled: false
   cluster_uuid: "${CLUSTER_UUID}"
 
-#   elasticsearch:
-#     username: "${ELASTICSEARCH_USERNAME}"
-#     password: "${ELASTICSEARCH_PASSWORD}"
-#     hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
-#     protocol: "https"
-#     ssl.enabled: true
-#     ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-#     ssl.verification_mode: "certificate"
-
 metricbeat.config.modules:
   path: ${path.config}/modules.d/*.yml
   reload.enabled: false
@@ -50,9 +41,7 @@ output:
 # ----------------------------- Elasticsearch Output ----------------------------
 
   elasticsearch:
-    hosts: 
-      - "https://es01.${APP_HOST}.${APP_NET}:9200"
-      # - "https://es02.${APP_HOST}.${APP_NET}:9201"
+    hosts: ["https://es01:9200"]
     protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
@@ -60,17 +49,6 @@ output:
       enabled: true
       certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
       verification_mode: "${VERIFICATION_MODE}"
-    
-# ------------------------------ Logstash Output -------------------------------
-
-  # logstash:
-  #   hosts: ["logstash.${APP_HOST}.${APP_NET}:5044"]
-  #   ssl:
-  #     certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-  #     certificate: "${LOGSTASH_SERVER_CERT}"
-  #     key: "${LOGSTASH_SERVER_CERT_KEY}"
-  #     # verification_mode: "none"
-  #     verification_mode: "${VERIFICATION_MODE}"
     
 #------------------------------ Setup -------------------------------
   
@@ -82,10 +60,7 @@ setup:
     # _source.enabled: false
 
   elasticsearch:
-    hosts: 
-      # - "https://es01:9200"
-      - "https://es01.${APP_HOST}.${APP_NET}:9200"
-      # - "https://es02.${APP_HOST}.${APP_NET}:9201"
+    hosts: ["https://es01:9200"]
     protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
@@ -95,12 +70,10 @@ setup:
       verification_mode: "${VERIFICATION_MODE}"
 
   kibana:
-    # host: "https://kibana:5601"
-    host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
-    # api_key: ${AGENT_API_KEY}
+    host: "https://kibana:5601"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
-    ssl:
-      enabled: true
-      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      verification_mode: "${VERIFICATION_MODE}"
+    # ssl:
+    #   enabled: true
+    #   certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    #   verification_mode: "${VERIFICATION_MODE}"

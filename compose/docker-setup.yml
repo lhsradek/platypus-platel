@@ -34,53 +34,47 @@
           echo "Creating certs";
           echo -ne \
           "instances:\n"\
-          "  - name: es01.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: es01\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
-          "      - es01.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: es02.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: es02\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - es02\n"\
-          "      - es02.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: logstash.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: logstash\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - logstash\n"\
-          "      - logstash.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: kibana.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: kibana\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - kibana\n"\
-          "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - ${KIBANA_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: filebeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: filebeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - filebeat\n"\
-          "      - filebeat.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: metricbeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - metricbeat\n"\
-          "      - metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "  - name: apm-server.${APP_HOST}.${INT_NETWORK}\n"\
+          "  - name: apm-server\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - apm-server\n"\
-          "      - apm-seerver${APP_HOST}.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           > config/certs/instances.yml;
@@ -95,33 +89,33 @@
         find . -type d -exec chmod 755 \{\} \;; # logstash
         find . -type f -exec chmod 640 \{\} \;;
         find . -type f -name ca.crt -exec chmod 644 \{\} \;; # logstash
-        find . -type f -name logstash.${APP_HOST}.${INT_NETWORK}.crt -exec chmod 644 \{\} \;; # for logstash
-        find . -type f -name logstash.${APP_HOST}.${INT_NETWORK}.key -exec chmod 644 \{\} \;; # for logstash
-        if [ ! -f /usr/share/elasticsearch/config/certs/logstash.${APP_HOST}.${INT_NETWORK}/logstash.pkcs8.key ]; then
-          openssl pkcs8 -inform PEM -in /usr/share/elasticsearch/config/certs/logstash.${APP_HOST}.${INT_NETWORK}/logstash.${APP_HOST}.${INT_NETWORK}.key -topk8 -nocrypt -outform PEM -out /usr/share/elasticsearch/config/certs/logstash.${APP_HOST}.${INT_NETWORK}/logstash.pkcs8.key
+        find . -type f -name logstash.crt -exec chmod 644 \{\} \;; # for logstash
+        find . -type f -name logstash.key -exec chmod 644 \{\} \;; # for logstash
+        if [ ! -f /usr/share/elasticsearch/config/certs/logstash/logstash.pkcs8.key ]; then
+          openssl pkcs8 -inform PEM -in /usr/share/elasticsearch/config/certs/logstash/logstash.key -topk8 -nocrypt -outform PEM -out /usr/share/elasticsearch/config/certs/logstash/logstash.pkcs8.key
         fi;
         find . -type f -name logstash.pkcs8.key -exec chmod 644 \{\} \;; # logstash
         #
         echo "Waiting for Elasticsearch availability";
-        until curl -s --cacert config/certs/ca/ca.crt https://es01.${APP_HOST}.${INT_NETWORK}:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
+        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01.${APP_HOST}.${INT_NETWORK}:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         #
         # https://www.elastic.co/guide/en/fleet/master/grant-access-to-elasticsearch.html
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/defining-roles.html
         # https://www.elastic.co/blog/configuring-ssl-tls-and-https-to-secure-elasticsearch-kibana-beats-and-logstash
         #
         echo "Setting logstash_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01.${APP_HOST}.${INT_NETWORK}:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         echo "Create ${LOGSTASH_WRITE_ROLE}";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01.${APP_HOST}.${INT_NETWORK}:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
         echo "Create ${LOGSTASH_USERNAME}";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01.${APP_HOST}.${INT_NETWORK}:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
-        curl -s -X GET --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://es01.${APP_HOST}.${INT_NETWORK}:9200/?pretty | grep "cluster_uuid";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
+        curl -s -X GET --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://es01:9200/?pretty | grep "cluster_uuid";
         echo "All done!";
       '
     healthcheck:
-      test: ["CMD-SHELL", "[ -f config/certs/es01.${APP_HOST}.${INT_NETWORK}/es01.${APP_HOST}.${INT_NETWORK}.crt ]"]
+      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
       interval: 10s
       timeout: 10s
       retries: 120
