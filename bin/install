@@ -42,6 +42,7 @@ else
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
+  echo "127.0.1.1         vps-26d758ad.vps.ovh.net        vps-26d758ad" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.2     es01       es01.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.3     es02       es02.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.5     logstash   logstash.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
