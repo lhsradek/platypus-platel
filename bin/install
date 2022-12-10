@@ -45,7 +45,7 @@ else
   echo "${ES_NET}.2     es01       es01.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.3     es02       es02.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.5     logstash   logstash.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.6     kibana     kibana.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.6     kibana     ${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.7     heartbeat  heartbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.8     metricbeat metricbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.9     filebeat   filebeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
