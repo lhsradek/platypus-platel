@@ -35,6 +35,14 @@
           echo "Creating certs";
           echo -ne \
           "instances:\n"\
+          "  - name: traefik\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - traefik\n"\
+          "      - traefik.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${TR_IP}\n"\
           "  - name: es01\n"\
           "    dns:\n"\
           "      - localhost\n"\
