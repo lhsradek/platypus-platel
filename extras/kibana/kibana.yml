@@ -34,7 +34,7 @@ monitoring:
 elasticsearch:
   hosts: 
     - "https://es01:9200"
-    # - "https://es02:9201"
+    - "https://es02:9201"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]

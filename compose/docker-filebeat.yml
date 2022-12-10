@@ -31,10 +31,7 @@
       - ./logs/es01:/usr/share/filebeat/elogs/es01
       - ./logs/es02:/usr/share/filebeat/elogs/es02
       - ./logs/kibana:/usr/share/filebeat/elogs/kibana
-      - /root/platypus-lhsdock/logs/nginx:/usr/share/filebeat/elogs/nginx/default
-      - /root/platypus-wordpress-mysql/logs/wordpress-nginx/:/usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql
-      - /root/platypus-wordpress-mysql/logs/wordpress-mysql/:/usr/share/filebeat/elogs/mysql/platypus-wordpress-mysql
-      - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
+      - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
       - filebeat:/usr/share/filebeat
     environment:
       - CLUSTER_NAME=${CLUSTER_NAME}
