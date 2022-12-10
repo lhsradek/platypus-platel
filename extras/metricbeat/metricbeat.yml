@@ -2,7 +2,7 @@
 
 http.enabled: true
 http.port: 5066
-http.host: "0.0.0.0"
+http.host: "${ES_NET}.8"
 # http.host: "metricbeat.nginx.local"
 
 monitoring:
@@ -41,7 +41,7 @@ output:
 # ----------------------------- Elasticsearch Output ----------------------------
 
   elasticsearch:
-    hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+    hosts: ["https://es01.${APP_NET}:9200"]
     protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
@@ -60,7 +60,7 @@ setup:
     # _source.enabled: false
 
   elasticsearch:
-    hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+    hosts: ["https://es01.${APP_NET}:9200"]
     protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"

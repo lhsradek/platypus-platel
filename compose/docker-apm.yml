@@ -38,9 +38,9 @@
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/apm-server/certs/ca/ca.crt
       - ELASTIC_APM_SERVICE_NAME=${APP-HOST}-${INT_NETWORK}
       - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-apm-server
+      - ES_NET=${ES_NET}
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-      - ES_NET=${ES_NET}
 #     labels:
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"

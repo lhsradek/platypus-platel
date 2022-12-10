@@ -26,7 +26,9 @@ monitoring:
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
-  hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
+  hosts: 
+    - "https://es01.${APP_NET}:9200"
+    - "https://es02.${APP_NET}:9201"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]

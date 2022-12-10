@@ -42,14 +42,14 @@ else
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.2     es01       es01.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.3     es02       es02.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.5     logstash   logstash.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.2     es01       es01.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.3     es02       es02.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.5     logstash   logstash.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.6     kibana     ${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.7     heartbeat  heartbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.8     metricbeat metricbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.9     filebeat   filebeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.10    apm-server apm-server.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.7     heartbeat  heartbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.8     metricbeat metricbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.9     filebeat   filebeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.10    apm-server apm-server.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml

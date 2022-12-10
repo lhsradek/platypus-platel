@@ -38,19 +38,19 @@
           "  - name: es01\n"\
           "    dns:\n"\
           "      - es01\n"\
-          "      - es01.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - es01.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.2\n"\
           "  - name: es02\n"\
           "    dns:\n"\
           "      - es02\n"\
-          "      - es02.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - es02.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.3\n"\
           "  - name: logstash\n"\
           "    dns:\n"\
           "      - logstash\n"\
-          "      - logstash.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - logstash.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.5\n"\
           "  - name: kibana\n"\
@@ -63,25 +63,25 @@
           "  - name: heartbeat\n"\
           "    dns:\n"\
           "      - heartbeat\n"\
-          "      - heartbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - heartbeat.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.7\n"\
           "  - name: filebeat\n"\
           "    dns:\n"\
           "      - filebeat\n"\
-          "      - filebeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - filebeat.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.9\n"\
           "  - name: metricbeat\n"\
           "    dns:\n"\
           "      - metricbeat\n"\
-          "      - metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - metricbeat.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.8\n"\
           "  - name: apm-server\n"\
           "    dns:\n"\
           "      - apm-server\n"\
-          "      - apm-server.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - apm-server.${INT_NETWORK}\n"\
           "    ip:\n"\
           "      - ${ES_NET}.10\n"\
           > config/certs/instances.yml;

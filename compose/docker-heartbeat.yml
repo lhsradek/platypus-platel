@@ -32,6 +32,7 @@
       - ELASTICSEARCH_USERNAME=elastic
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/heartbeat/certs/ca/ca.crt
+      - ES_NET=${ES_NET}
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
 #     labels:
