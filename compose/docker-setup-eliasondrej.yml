@@ -1,0 +1,144 @@
+
+#
+# setup makes certs, create role and user and change passwords
+#
+  setup:
+    # Ubuntu - elasticsearch
+    # see https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: "${APP_ID}-setup"
+    hostname: "setup.${APP_HOST}.${INT_NETWORK}"
+    networks:
+      # local network:
+      intnet:
+        ipv4_address: ${ES_NET}.30
+    volumes:
+      - ./certs:/usr/share/elasticsearch/config/certs
+    user: "0"
+    command: >
+      bash -c '
+        if [ x${ELASTIC_PASSWORD} == x ]; then
+          echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
+          exit 1;
+        elif [ x${KIBANA_PASSWORD} == x ]; then
+          echo "Set the KIBANA_PASSWORD environment variable in the .env file";
+          exit 1;
+        fi;
+        if [ ! -f certs/ca.zip ]; then
+          echo "Creating CA";
+          if [ ! -f config/certs/ca.zip ]; then
+            bin/elasticsearch-certutil ca --silent --days 365 --pem -out config/certs/ca.zip;
+          fi;
+          unzip -n config/certs/ca.zip -d config/certs;
+        fi;
+        if [ ! -f certs/certs.zip ]; then
+          echo "Creating certs";
+          echo -ne \
+          "instances:\n"\
+          "  - name: es01\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - es01\n"\
+          "      - es01.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.2\n"\
+          "  - name: es02\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - es02\n"\
+          "      - es02.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.3\n"\
+          "  - name: logstash\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - logstash\n"\
+          "      - logstash.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.5\n"\
+          "  - name: kibana\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - kibana\n"\
+          "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
+          "      - ${KIBANA_HOST}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.6\n"\
+          "      - ${ES_IP}\n"\
+          "  - name: heartbeat\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - heartbeat\n"\
+          "      - heartbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "  - name: filebeat\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - filebeat\n"\
+          "      - filebeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.9\n"\
+          "  - name: metricbeat\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - metricbeat\n"\
+          "      - metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.8\n"\
+          "  - name: apm-server\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - apm-server\n"\
+          "      - apm-server.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.10\n"\
+          > config/certs/instances.yml;
+          if [ ! -f config/certs/certs.zip ]; then
+            bin/elasticsearch-certutil cert --silent --days 365 --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+          fi;
+          unzip -n config/certs/certs.zip -d config/certs;
+        fi;
+        echo "Setting file permissions"
+        chown -R root:root config/certs;
+        # find . -type d -exec chmod 750 \{\} \;;
+        find . -type d -exec chmod 755 \{\} \;; # logstash
+        find . -type f -exec chmod 640 \{\} \;;
+        find . -type f -name ca.crt -exec chmod 644 \{\} \;; # logstash
+        find . -type f -name logstash.crt -exec chmod 644 \{\} \;; # for logstash
+        find . -type f -name logstash.key -exec chmod 644 \{\} \;; # for logstash
+        if [ ! -f /usr/share/elasticsearch/config/certs/logstash/logstash.pkcs8.key ]; then
+          openssl pkcs8 -inform PEM -in /usr/share/elasticsearch/config/certs/logstash/logstash.key -topk8 -nocrypt -outform PEM -out /usr/share/elasticsearch/config/certs/logstash/logstash.pkcs8.key
+        fi;
+        find . -type f -name logstash.pkcs8.key -exec chmod 644 \{\} \;; # logstash
+        #
+        echo "Waiting for Elasticsearch availability";
+        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
+        echo "Setting kibana_system password";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        #
+        # https://www.elastic.co/guide/en/fleet/master/grant-access-to-elasticsearch.html
+        # https://www.elastic.co/guide/en/elasticsearch/reference/current/defining-roles.html
+        # https://www.elastic.co/blog/configuring-ssl-tls-and-https-to-secure-elasticsearch-kibana-beats-and-logstash
+        #
+        echo "Setting logstash_system password";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        echo "Create ${LOGSTASH_WRITE_ROLE}";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],{\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
+        echo "Create ${LOGSTASH_USERNAME}";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
+        curl -s -X GET --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://es01:9200/?pretty | grep "cluster_uuid";
+        echo "All done!";
+      '
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
+      interval: 10s
+      timeout: 10s
+      retries: 120

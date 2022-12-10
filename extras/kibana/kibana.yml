@@ -4,7 +4,8 @@ server:
   host: "0.0.0.0"
   shutdownTimeout: "5s"
   socketTimeout: "240000"
-  publicBaseUrl: "https://${KIBANA_HOST}:5601"
+  publicBaseUrl: "https://${KIBANA_HOST}:443"
+  port: 5601
   ssl:
     enabled: true
     certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
@@ -21,20 +22,11 @@ monitoring:
     container:
       elasticsearch.enabled: true
       logstash.enabled: true
-    elasticsearch:
-      hosts: ["https://es01:9200"]
-      username: "${ELASTICSEARCH_USERNAME}"
-      password: "${ELASTICSEARCH_PASSWORD}"
-      ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      ssl.verificationMode: "${VERIFICATION_MODE}"
-      requestTimeout: 240000
   kibana.collection.enabled: false
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
-  hosts: 
-    - "https://es01:9200"
-    - "https://es02:9201"
+  hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
@@ -55,6 +47,8 @@ xpack:
     poll_interval: 180000
     max_workers: 2
   apm.serviceMapEnabled: false
+  remote_clusters.ui.enabled: false
+  snapshot_restore.ui.enabled: false
   fleet:
     packages:
       - name: elastic_agent

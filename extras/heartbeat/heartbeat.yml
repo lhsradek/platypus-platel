@@ -31,8 +31,8 @@ heartbeat.monitors:
   tags: [web]
   hosts:
     # ELK
-    - https://es01:9200
-    - https://es02:9201
+    - https://es01.${APP_HOST}.${APP_NET}:9200
+    - https://es02.${APP_HOST}.${APP_NET}:9201
     # logstash for finger print:
     #- https://logstash.${APP_HOST}.${APP_NET}:5044
   ssl:
@@ -48,12 +48,12 @@ heartbeat.monitors:
   service.name: heartbeat-tcp
   tags: [tcp]
   hosts:
-    - logstash:9600
-    - kibana:5601
-    # - filebeat:5066
-    # - apm-server:5066
-    # - heartbeat:5066
-    # - metricbeat:5066
+    - logstash.${APP_HOST}.${APP_NET}:9600
+    - kibana.${APP_HOST}.${APP_NET}:5601
+    - filebeat.${APP_HOST}.${APP_NET}:5066
+    - apm-server.${APP_HOST}.${APP_NET}:5066
+    - heartbeat.${APP_HOST}.${APP_NET}:5066
+    - metricbeat.${APP_HOST}.${APP_NET}:5066
 
 #  - type: icmp
 #   schedule: '*/15 * * * * *'
@@ -81,7 +81,7 @@ processors:
 
 output:
   elasticsearch:
-    hosts: ["https://es01:9200"]
+    hosts: ["https://es01.${APP_HOST}.${APP_NET}:9200"]
     protocol: "https"
     username: '${ELASTICSEARCH_USERNAME}'
     password: '${ELASTICSEARCH_PASSWORD}'
@@ -93,7 +93,7 @@ output:
 setup:
   ilm.overwrite: true
   kibana:
-    host: "https://kibana:5601"
+    host: "https://kibana.${APP_HOST}.${APP_NET}:5601"
     username: '${ELASTICSEARCH_USERNAME}'
     password: '${ELASTICSEARCH_PASSWORD}'
     ssl:

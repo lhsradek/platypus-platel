@@ -10,14 +10,14 @@
     image: logstash:${STACK_VERSION}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-logstash"
-    hostname: "logstash"
+    hostname: "logstash.${APP_HOST}.${INT_NETWORK}"
     networks:
-     # for traefik:
+      # for traefik:
       # default:
       # local network:
       intnet:
         ipv4_address: ${ES_NET}.5
-    ports:
+    # ports:
       # syslog access pipeline
       # - 5000:5000/udp
       # - 5000:5000/tcp
@@ -25,9 +25,9 @@
       # - 5001:5001/udp
       # - 5001:5001/tcp
       # beat pipeline
-      - ${LOGSTASH_PORT}:5044
+      # - ${LOGSTASH_PORT}:5044
       # elastic-agent pipeline
-      - 5045:5045
+      # - 5045:5045
       # metrics
       # - 9600:9600
     volumes:
@@ -44,6 +44,8 @@
       - ./extras/logstash/syslog-error.conf:/usr/share/logstash/pipeline/syslog-error.conf
       - logstash:/usr/share/logstash
     environment:
+      - APP_HOST=${APP_HOST}
+      - APP_NET=${INT_NETWORK}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTIC_SSL_CERTIFICATEAUTHORITY=/usr/share/logstash/config/certs/ca.crt
@@ -78,14 +80,14 @@
 #       - "traefik.udp.services.logstash-${APP_ID}-udp-error.loadbalancer.server.port=5001"
 #      
 #       - "traefik.tcp.routers.logstash-elastic.tls=true"
-#       - "traefik.tcp.routers.logstash-elastic.rule=HostSNI(`logstash`)"
+#       - "traefik.tcp.routers.logstash-elastic.rule=HostSNI(`logstash.${APP_HOST}.${INT_NETWORK}`)"
 #       - "traefik.tcp.routers.logstash-elastic.entrypoints=tcp-elastic"
 #       - "traefik.tcp.routers.logstash-elastic.tls.passthrough=true"
 #       - "traefik.tcp.routers.logstash-elastic.service=logstash-${APP_ID}-tcp-elastic"
 #       - "traefik.tcp.services.logstash-${APP_ID}-tcp-elastic.loadbalancer.server.port=5044"
 #      
 #       - "traefik.tcp.routers.logstash-beat.tls=true"
-#       - "traefik.tcp.routers.logstash-beat.rule=HostSNI(`logstash`)"
+#       - "traefik.tcp.routers.logstash-beat.rule=HostSNI(`logstash.${APP_HOST}.${INT_NETWORK}`)"
 #       - "traefik.tcp.routers.logstash-beat.entrypoints=tcp-beat"
 #       - "traefik.tcp.routers.logstash-beat.tls.passthrough=true"
 #       - "traefik.tcp.routers.logstash-beat.service=logstash-${APP_ID}-tcp-beat"

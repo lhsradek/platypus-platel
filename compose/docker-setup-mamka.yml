@@ -7,7 +7,7 @@
     # see https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     container_name: "${APP_ID}-setup"
-    hostname: "setup"
+    hostname: "setup.${APP_HOST}.${INT_NETWORK}"
     networks:
       # local network:
       intnet:
@@ -39,34 +39,79 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
+          "      - es01.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.2\n"\
+          "      - ${ES_IP}\n"\
           "  - name: es02\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - es02\n"\
+          "      - es02.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.3\n"\
+          "      - ${ES_IP}\n"\
           "  - name: logstash\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - logstash\n"\
+          "      - logstash.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.5\n"\
+          "      - ${ES_IP}\n"\
           "  - name: kibana\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - kibana\n"\
+          "      - kibana.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.6\n"\
+          "      - ${ES_IP}\n"\
           "  - name: heartbeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - heartbeat\n"\
+          "      - heartbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.7\n"\
           "  - name: filebeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - filebeat\n"\
+          "      - filebeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.9\n"\
           "  - name: metricbeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - metricbeat\n"\
+          "      - metricbeat.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.8\n"\
           "  - name: apm-server\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - apm-server\n"\
+          "      - apm-server.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.10\n"\
+          "  - name: cerebro\n"\
+          "    dns:\n"\
+          "      - localhost\n"\
+          "      - cerebro\n"\
+          "      - cerebro.${APP_HOST}.${INT_NETWORK}\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          "      - ${ES_NET}.20\n"\
+          "      - ${ES_IP}\n"\
           > config/certs/instances.yml;
           if [ ! -f config/certs/certs.zip ]; then
             bin/elasticsearch-certutil cert --silent --days 365 --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
@@ -98,7 +143,7 @@
         echo "Setting logstash_system password";
         until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         echo "Create ${LOGSTASH_WRITE_ROLE}";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],{\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
         echo "Create ${LOGSTASH_USERNAME}";
         until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
         curl -s -X GET --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://es01:9200/?pretty | grep "cluster_uuid";

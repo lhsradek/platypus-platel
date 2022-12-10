@@ -10,10 +10,10 @@
     image: docker.elastic.co/beats/metricbeat:${STACK_VERSION}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-metricbeat"
-    hostname: "metricbeat"
+    hostname: "metricbeat.${APP_HOST}.${INT_NETWORK}"
     #  user: root
     networks:
-     # for traefik:
+      # for traefik:
       # default:
       # local network:
       intnet:
@@ -29,6 +29,8 @@
       - ./logs/metricbeat:/usr/share/metricbeat/logs
       - metricbeat:/usr/share/metricbeat
     environment:
+      - APP_HOST=${APP_HOST}
+      - APP_NET=${INT_NETWORK}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=elastic
@@ -41,7 +43,7 @@
 #     labels:
 #       - "traefik.enable=true"
 #       - "traefik.docker.network=${DOCKER_NETWORK}"
-#       - "traefik.http.routers.metricbeat-${APP_ID}.rule=Host(`metricbeat`)"
+#       - "traefik.http.routers.metricbeat-${APP_ID}.rule=Host(`metricbeat.${APP_HOST}.${INT_NETWORK}`)"
 #       - "traefik.http.routers.metricbeat-${APP_ID}.entrypoints=https"
 #       - "traefik.http.routers.metricbeat-${APP_ID}.tls=true"
 #       - "traefik.http.services.metricbeat-${APP_ID}.loadbalancer.server.port=5066"

@@ -37,21 +37,24 @@ if [[ -f "$rootPath/docker-compose.$RUNENV.yml" ]]; then
   exit 1;
 else
   ES_NET=$(read_var ES_NET .env)
+  INT_NETWORK=$(read_var INT_NETWORK .env)
+  APP_HOST=$(read_var APP_HOST .env)
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.2     es01" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.3     es02" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.5     logstash" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.6     kibana" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.7     heartbeat" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.8     metricbeat" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.9     filebeat" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.10    apm-server" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.2     es01       es01.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.3     es02       es02.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.5     logstash   logstash.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.6     kibana     kibana.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.7     heartbeat  heartbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.8     metricbeat metricbeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.9     filebeat   filebeat.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.10    apm-server apm-server.${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
-  cat $rootPath/compose/docker-setup.yml >> $rootPath/docker-compose.$RUNENV.yml
+#  cat $rootPath/compose/docker-setup-mamka.yml >> $rootPath/docker-compose.$RUNENV.yml
+  cat $rootPath/compose/docker-setup-eliasondrej.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-end.yml >> $rootPath/docker-compose.$RUNENV.yml
   echo
   echo "================= START INSTALL ================"
