@@ -24,7 +24,7 @@
       - ./logs/es02:/usr/share/elasticsearch/logs
       - esdata02:/usr/share/elasticsearch
     environment:
-      - network.hosts=${ES_NET}.3
+      - network.host=${ES_NET}.3
       - node.name=es02
       - http.port=9201
       - transport.port=9301
