@@ -19,6 +19,7 @@
       - ./logs/es01:/usr/share/elasticsearch/logs
       - esdata01:/usr/share/elasticsearch
     environment:
+      - network.hosts=${ES_NET}.2
       - node.name=es01
       - http.port=9200
       - transport.port=9300
