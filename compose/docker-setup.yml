@@ -39,60 +39,34 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.2\n"\
           "  - name: es02\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - es02\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.3\n"\
           "  - name: logstash\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - logstash\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.5\n"\
           "  - name: kibana\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - kibana\n"\
-          "      - ${KIBANA_HOST}\n"\
-          "      - ${ES_NET}.6\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - 135.125.191.66\n"\
           "  - name: heartbeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - heartbeat\n"\
-          "      - ${ES_NET}.7\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
           "  - name: filebeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - filebeat\n"\
-          "      - ${ES_NET}.9\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
           "  - name: metricbeat\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - metricbeat\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.8\n"\
           "  - name: apm-server\n"\
           "    dns:\n"\
           "      - localhost\n"\
           "      - apm-server\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.10\n"\
           > config/certs/instances.yml;
           if [ ! -f config/certs/certs.zip ]; then
             bin/elasticsearch-certutil cert --silent --days 365 --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
