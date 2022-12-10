@@ -13,12 +13,14 @@
     hostname: "filebeat"
     networks:
       # for traefik:
-      #  - default
+      #  default:
       # local network:
-      - intnet
+      intnet:
+        ipv4_address: ${ES_NET}.9
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./extras/hosts/hosts:/etc/hosts
       # - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       # - /proc:/hostfs/proc:ro
       - /:/hostfs:ro

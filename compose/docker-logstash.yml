@@ -13,9 +13,10 @@
     hostname: "logstash"
     networks:
      # for traefik:
-      # - default
+      # default:
       # local network:
-      - intnet
+      intnet:
+        ipv4_address: ${ES_NET}.5
     # ports:
       # syslog access pipeline
       # - 5000:5000/udp
@@ -31,6 +32,7 @@
       # - 9600:9600
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./extras/hosts/hosts:/etc/hosts
       - ./certs/ca/ca.crt:/usr/share/logstash/config/certs/ca.crt
       - ./certs/logstash/logstash.crt:/usr/share/logstash/config/certs/logstash.crt
       - ./certs/logstash/logstash.pkcs8.key:/usr/share/logstash/config/certs/logstash.key
