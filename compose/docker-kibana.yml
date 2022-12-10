@@ -16,8 +16,8 @@
       # - default
       # local network:
       - intnet
-    ports:
-      - ${KIBANA_PORT}:5601
+    # ports:
+    #   - ${KIBANA_PORT}:5601
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/usr/share/kibana/config/certs

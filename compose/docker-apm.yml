@@ -13,7 +13,7 @@
     hostname: "apm-server"
     networks:
       # for traefik
-      - default
+      # - default
       # local network:
       - intnet
     # for external apps as traefik or other apps without apm in container
