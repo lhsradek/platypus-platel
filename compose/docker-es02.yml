@@ -12,8 +12,8 @@
       # - default
       # local network:
       - intnet
-    ports:
-      - 9201:9201
+    # ports:
+      # - 9201:9201
       # - 9301:9301
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

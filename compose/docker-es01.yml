@@ -7,8 +7,8 @@
       # - default
       # local network:
       - intnet
-    ports:
-      - ${ES_PORT}:9200
+    # ports:
+      # - ${ES_PORT}:9200
       # - 9300:9300
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
