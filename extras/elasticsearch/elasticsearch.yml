@@ -1,14 +1,13 @@
 cluster.initial_master_nodes: "${ES_NODES}"
 
 cluster.name: "${CLUSTER_NAME}"
-#network.host: 0.0.0.0
-node.roles: [master, data, ingest, ml, remote_cluster_client]
+node.roles: [master, data, ingest]
 bootstrap.memory_lock: true
 
 xpack:
   license.self_generated.type: "${LICENSE}"
   security:
-    #authc.api_key.enabled: true        
+    # authc.api_key.enabled: true        
     http:
       ssl:
         enabled: true
@@ -17,7 +16,8 @@ xpack:
     transport:
       ssl:
         enabled: true
-        verification_mode: "${VERIFICATION_MODE}"
+        verification_mode: "none"
+        # verification_mode: "${VERIFICATION_MODE}"
         certificate_authorities: "certs/ca/ca.crt"
 
 # logger.org.elasticsearch.discovery: INFO

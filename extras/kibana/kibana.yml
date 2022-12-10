@@ -19,9 +19,9 @@ monitoring:
   ui:
     enabled: true
     ccs.enabled: false
-    container:
-      elasticsearch.enabled: true
-      logstash.enabled: true
+    # container:
+    #  elasticsearch.enabled: true
+    #  logstash.enabled: true
   kibana.collection.enabled: false
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
@@ -32,7 +32,7 @@ elasticsearch:
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-  ssl.verificationMode: "${VERIFICATION_MODE}"
+  ssl.verificationMode: "none"
   requestTimeout: 240000
 
 xpack:
@@ -53,8 +53,6 @@ xpack:
   snapshot_restore.ui.enabled: false
   fleet:
     packages:
-      - name: elastic_agent
-        version: latest
       - name: apm
         version: latest
       - name: system
@@ -64,8 +62,6 @@ xpack:
       - name: traefik
         version: latest
       - name: log
-        version: latest
-      - name: logstash
         version: latest
       
 # https://www.elastic.co/guide/en/kibana/current/logging-configuration.html
