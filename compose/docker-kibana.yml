@@ -44,7 +44,7 @@
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - KIBANA_HOST=${KIBANA_HOST}
     labels:
-      - "traefik.enable=true"
+      - "traefik.enable=false"
       - "traefik.docker.network=${DOCKER_NETWORK}"
       - "traefik.http.routers.kibana-public.rule=Host(`${KIBANA_HOST}`)"
       - "traefik.http.routers.kibana-public.entrypoints=https"
