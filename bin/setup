@@ -44,10 +44,10 @@ else
   cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-logstash.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-kibana.yml >> $rootPath/docker-compose.$RUNENV.yml
-  # cat $rootPath/compose/docker-apm.yml >> $rootPath/docker-compose.$RUNENV.yml
+  cat $rootPath/compose/docker-apm.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-filebeat.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-metricbeat.yml >> $rootPath/docker-compose.$RUNENV.yml
-  # cat $rootPath/compose/docker-heartbeat.yml >> $rootPath/docker-compose.$RUNENV.yml
+  cat $rootPath/compose/docker-heartbeat.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-end.yml >> $rootPath/docker-compose.$RUNENV.yml
   echo
   echo "================= START SETUP ================"
