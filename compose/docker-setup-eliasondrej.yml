@@ -41,7 +41,6 @@
           "      - es01\n"\
           "      - es01.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.2\n"\
           "  - name: es02\n"\
@@ -50,7 +49,6 @@
           "      - es02\n"\
           "      - es02.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.3\n"\
           "  - name: logstash\n"\
@@ -59,7 +57,6 @@
           "      - logstash\n"\
           "      - logstash.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.5\n"\
           "  - name: kibana\n"\
@@ -69,7 +66,6 @@
           "      - ${APP_HOST}.${INT_NETWORK}\n"\
           "      - ${KIBANA_HOST}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.6\n"\
           "      - ${ES_IP}\n"\
@@ -79,7 +75,6 @@
           "      - heartbeat\n"\
           "      - heartbeat.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.7\n"\
           "  - name: filebeat\n"\
@@ -88,7 +83,6 @@
           "      - filebeat\n"\
           "      - filebeat.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.9\n"\
           "  - name: metricbeat\n"\
@@ -97,7 +91,6 @@
           "      - metricbeat\n"\
           "      - metricbeat.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.8\n"\
           "  - name: apm-server\n"\
@@ -106,7 +99,6 @@
           "      - apm-server\n"\
           "      - apm-server.${INT_NETWORK}\n"\
           "    ip:\n"\
-          "      - ::1\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.10\n"\
           > config/certs/instances.yml;
