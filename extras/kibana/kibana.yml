@@ -55,14 +55,6 @@ xpack:
     packages:
       - name: apm
         version: latest
-      - name: system
-        version: latest
-      - name: docker
-        version: latest
-      - name: traefik
-        version: latest
-      - name: log
-        version: latest
       
 # https://www.elastic.co/guide/en/kibana/current/logging-configuration.html
 logging:
