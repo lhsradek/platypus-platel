@@ -33,7 +33,7 @@ elasticsearch:
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
   ssl.verificationMode: "none"
-  requestTimeout: 240000
+  requestTimeout: 300000
 
 xpack:
   reporting:
