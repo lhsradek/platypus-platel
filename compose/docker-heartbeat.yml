@@ -1,4 +1,3 @@
-
 #   
 # === Heartbeat ===
 #     
@@ -8,14 +7,15 @@
         condition: service_healthy
     # Ubuntu - heartbeat
     image: docker.elastic.co/beats/heartbeat:${STACK_VERSION}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM_LIMIT}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-heartbeat"
-    hostname: "heartbeat.${APP_HOST}.${INT_NETWORK}"
+    hostname: "heartbeat.${ELASTIC_NETWORK}"
     networks:
-      # for traefik:
-      # default:
-      # local network:
-      intnet:
+      elastic:
         ipv4_address: ${ES_NET}.7
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -26,7 +26,7 @@
       - heartbeat:/usr/share/heartbeat
     environment:
       - APP_HOST=${APP_HOST}
-      - APP_NET=${INT_NETWORK}
+      - APP_NET=${ELASTIC_NETWORK}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=elastic
@@ -35,11 +35,4 @@
       - ES_NET=${ES_NET}
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
-#     labels:
-#       - "traefik.enable=true"
-#       - "traefik.docker.network=${DOCKER_NETWORK}"
-#       - "traefik.http.routers.heartbeat-public.rule=Host(`heartbeat.${APP_HOST}.${INT_NETWORK}`)"
-#       - "traefik.http.routers.heartbeat-public.entrypoints=https"
-#       - "traefik.http.routers.heartbeat-public.tls=true"
-#       - "traefik.http.services.heartbeat-${APP_ID}.loadbalancer.server.port=5066"
-#       - "traefik.http.services.heartbeat-${APP_ID}.loadbalancer.server.scheme=http"
+

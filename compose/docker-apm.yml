@@ -1,4 +1,3 @@
-
 #
 # === APM Server ===
 #
@@ -8,19 +7,20 @@
         condition: service_healthy
     # Ubuntu - enterprisesearch
     image: docker.elastic.co/apm/apm-server:${STACK_VERSION}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM_LIMIT}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-apm-server"
-    hostname: "apm-server.${APP_HOST}.${INT_NETWORK}"
+    hostname: "apm-server.${ELASTIC_NETWORK}"
     networks:
-      # for traefik
-      # default:
       # local network:
-      intnet:
+      elastic:
         ipv4_address: ${ES_NET}.10
-    # for external apps as traefik or other apps without apm in container
-    ports:
-      - ${APM_PORT}:8200
-      # - 5066:5066
+    # ports:
+    #   - ${APM_PORT}:8200
+    #   - 5066:5066
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/hosts/hosts:/etc/hosts
@@ -30,23 +30,13 @@
       - apm:/usr/share/apm-server
     environment:
       - APP_HOST=${APP_HOST}
-      - APP_NET=${INT_NETWORK}
+      - APP_NET=${ELASTIC_NETWORK}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=elastic
       - ELASTICSEARCH_PASSWORD=${APM_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/apm-server/certs/ca/ca.crt
-      - ELASTIC_APM_SERVICE_NAME=${APP-HOST}-${INT_NETWORK}
-      - ELASTIC_APM_SERVICE_NODE_NAME=${APP-HOST}-${INT_NETWORK}-apm-server
       - ES_NET=${ES_NET}
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-#     labels:
-#       - "traefik.enable=false"
-#       - "traefik.docker.network=${DOCKER_NETWORK}"
-#       - "traefik.http.routers.apm-server-public.rule=Host(`apm-server.${APP_HOST}.${INT_NETWORK}`)"
-#       - "traefik.http.routers.apm-server-public.service=apm-server-${APP_ID}"
-#       - "traefik.http.routers.apm-server-public.entrypoints=https"
-#       - "traefik.http.routers.apm-server-public.tls=true"
-#       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.port=8200"
-#       - "traefik.http.services.apm-server-${APP_ID}.loadbalancer.server.scheme=http"
+

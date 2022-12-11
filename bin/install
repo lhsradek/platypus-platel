@@ -38,15 +38,14 @@ if [[ -f "$rootPath/docker-compose.$RUNENV.yml" ]]; then
 else
   ES_NET=$(read_var ES_NET .env)
   INT_NETWORK=$(read_var INT_NETWORK .env)
-  APP_HOST=$(read_var APP_HOST .env)
+  APP_ID=$(read_var APP_ID .env)
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
-  echo "127.0.1.1         vps-26d758ad.vps.ovh.net        vps-26d758ad" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.2     es01       es01.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.3     es02       es02.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.5     logstash   logstash.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.6     kibana     ${APP_HOST}.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.6     kibana     kibana.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.7     heartbeat  heartbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.8     metricbeat metricbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.9     filebeat   filebeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
@@ -61,7 +60,7 @@ else
   echo "================= START INSTALL ================"
   ${scriptPath}/start
   echo
-  echo "Use 'curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit."
+  echo "Use 'curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit or see 'docker logs -f ${APP_ID}-setup'"
   echo
   echo "Set CLUSTER-UUID to '.env' and start 'bin/setup'"
   echo

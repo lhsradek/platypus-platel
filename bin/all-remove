@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# exit 0;
-
 scriptPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 rootPath="$(dirname "${scriptPath}")"
 

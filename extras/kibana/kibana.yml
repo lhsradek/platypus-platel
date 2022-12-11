@@ -53,7 +53,23 @@ xpack:
   snapshot_restore.ui.enabled: false
   fleet:
     packages:
+      - name: elastic_agent
+        version: latest
       - name: apm
+        version: latest
+      - name: system
+        version: latest
+      - name: docker
+        version: latest
+      - name: mysql
+        version: latest
+      - name: nginx
+        version: latest
+      - name: traefik
+        version: latest
+      - name: log
+        version: latest
+      - name: logstash
         version: latest
       
 # https://www.elastic.co/guide/en/kibana/current/logging-configuration.html

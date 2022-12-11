@@ -1,21 +1,24 @@
-
 #
 # === K - kibana ===
 #
   kibana:
     depends_on:
-      es02:
+      logstash:
         condition: service_healthy
     # Ubuntu - kibana 
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM_KIBANA_LIMIT}
     restart: ${DOCKER_RESTART_POLICY}
     container_name: "${APP_ID}-kibana"
-    hostname: "kibana.${APP_HOST}.${INT_NETWORK}"
+    hostname: "kibana.${ELASTIC_NETWORK}"
     networks:
       # for traefik:
       default:
       # local network:
-      intnet:
+      elastic:
         ipv4_address: ${ES_NET}.6
     ports:
       - ${KIBANA_PORT}:5601
@@ -28,14 +31,14 @@
       - kibana:/usr/share/kibana
     environment:
       - APP_HOST=${APP_HOST}
-      - APP_NET=${INT_NETWORK}
-      - SERVERNAME=kibana.${INT_NETWORK}
+      - APP_NET=${ELASTIC_NETWORK}
+      - SERVERNAME=kibana.${ELASTIC_NETWORK}
       - STACK_VERSION=${STACK_VERSION}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
-      - ELASTICSEARCH_HOSTS=https://es01.${INT_NETWORK}:9200        
+      - ELASTICSEARCH_HOSTS=https://es01.${ELASTIC_NETWORK}:9200        
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
       - ELASTICSEARCH_SSL_SERVER_CERT=/usr/share/kibana/config/certs/kibana/kibana.crt
       - ELASTICSEARCH_SSL_SERVER_CERT_KEY=/usr/share/kibana/config/certs/kibana/kibana.key

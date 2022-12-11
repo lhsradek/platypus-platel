@@ -73,7 +73,7 @@ setup:
     host: "https://kibana.${APP_NET}:5601"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
-    # ssl:
-    #   enabled: true
-    #   certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-    #   verification_mode: "${VERIFICATION_MODE}"
+    ssl:
+      enabled: true
+      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      verification_mode: "${VERIFICATION_MODE}"
