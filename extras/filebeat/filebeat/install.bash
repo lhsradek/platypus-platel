@@ -12,3 +12,4 @@ rm /usr/share/filebeat/modules.d/kibana.yml.disabled
 cp /root/bin/kibana.yml  /usr/share/filebeat/modules.d/kibana.yml
 rm /usr/share/filebeat/modules.d/traefik.yml.disabled
 cp /root/bin/traefik.yml  /usr/share/filebeat/modules.d/traefik.yml
+chown root.root /usr/share/filebeat/modules.d/*
