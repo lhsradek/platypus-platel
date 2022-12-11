@@ -94,7 +94,7 @@
 #       - "traefik.tcp.routers.logstash-beat.service=logstash-${APP_ID}-tcp-beat"
 #       - "traefik.tcp.services.logstash-${APP_ID}-tcp-beat.loadbalancer.server.port=5045"
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -I http://localhost:9600 | grep -q 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.5:9600 | grep -q 'HTTP/1.1 200 OK'"]
       # inspiration from https://github.com/elastic/stack-docker/blob/master/docker-compose.yml
       # increase interval and timeout if api.ssl.enabled: true - and test:
       # test: ["CMD-SHELL", "bin/logstash -t | grep -q 'Config Validation Result: OK'"]
