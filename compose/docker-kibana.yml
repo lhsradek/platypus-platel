@@ -13,7 +13,7 @@
     hostname: "kibana.${APP_HOST}.${INT_NETWORK}"
     networks:
       # for traefik:
-      default:
+      # default:
       # local network:
       intnet:
         ipv4_address: ${ES_NET}.6
@@ -35,6 +35,7 @@
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      - ELASTICSEARCH_HOSTS=https://es01.${INT_NETWORK}:9200        
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
       - ELASTICSEARCH_SSL_SERVER_CERT=/usr/share/kibana/config/certs/kibana/kibana.crt
       - ELASTICSEARCH_SSL_SERVER_CERT_KEY=/usr/share/kibana/config/certs/kibana/kibana.key
