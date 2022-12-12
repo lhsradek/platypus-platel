@@ -20,8 +20,8 @@
       # local network:
       elastic:
         ipv4_address: ${ES_NET}.6
-    ports:
-      - ${KIBANA_PORT}:5601
+    # ports:
+    #   - ${KIBANA_PORT}:5601
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/hosts/hosts:/etc/hosts
@@ -53,16 +53,15 @@
       - "traefik.http.routers.kibana-public.rule=Host(`${KIBANA_HOST}`)"
       - "traefik.http.routers.kibana-public.entrypoints=https"
       - "traefik.http.routers.kibana-public.tls=true"
-      - "traefik.http.routers.kibana-public.middlewares=kibana-${APP_ID}@docker"
-      - "traefik.http.middlewares.kibana-${APP_ID}.redirectscheme.port=5601"
-      - "traefik.http.middlewares.kibana-${APP_ID}.redirectscheme.scheme=https"
+      - "traefik.http.services.kibana-${APP_ID}.loadbalancer.server.port=5601"
+      - "traefik.http.services.kibana-${APP_ID}.loadbalancer.server.scheme=http"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     healthcheck:
-      test: ["CMD-SHELL", "curl -s --cacert config/certs/ca/ca.crt -I https://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
+      test: ["CMD-SHELL", "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
+      # test: ["CMD-SHELL", "curl -s --cacert config/certs/ca/ca.crt -I https://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
       interval: 10s
       timeout: 10s
       retries: 500
-          
