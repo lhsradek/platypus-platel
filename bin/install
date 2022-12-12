@@ -37,19 +37,19 @@ if [[ -f "$rootPath/docker-compose.$RUNENV.yml" ]]; then
   exit 1;
 else
   ES_NET=$(read_var ES_NET .env)
-  INT_NETWORK=$(read_var INT_NETWORK .env)
+  ELASTIC_NETWORK=$(read_var ELASTIC_NETWORK .env)
   APP_ID=$(read_var APP_ID .env)
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.2     es01       es01.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.3     es02       es02.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.5     logstash   logstash.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.6     kibana     kibana.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.7     heartbeat  heartbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.8     metricbeat metricbeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.9     filebeat   filebeat.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.10    apm-server apm-server.${INT_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.2     es01       es01.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.3     es02       es02.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.5     logstash   logstash.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.6     kibana     kibana.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.7     heartbeat  heartbeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.8     metricbeat metricbeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.9     filebeat   filebeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.10    apm-server apm-server.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
