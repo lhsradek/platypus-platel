@@ -21,11 +21,11 @@
       - esdata01:/usr/share/elasticsearch
     environment:
       - network.host=${ES_NET}.2
-      - node.name=master
-      # - node.name=es01
+      - node.name=es01
       - http.port=9200
-      # - transport.port=9300
+      - transport.port=9300
       - discovery.type=single-node
+      - xpack.security.enabled=false
       # - discovery.seed_hosts=es02:9301
       # - xpack.security.transport.ssl.key=certs/es01/es01.key
       # - xpack.security.transport.ssl.certificate=certs/es01/es01.crt

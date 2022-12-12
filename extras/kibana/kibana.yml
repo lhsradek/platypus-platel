@@ -36,9 +36,9 @@ xpack:
     kibanaServer.hostname: "kibana"
     roles.enabled: false
     encryptionKey: 8de551ca1432f0dcf3ad2908472562b1
-  security:
-    encryptionKey: 363792db7b8cf9581c6cbdddbb8ff95f
-    session.idleTimeout: 24h
+  # security:
+  #   encryptionKey: 363792db7b8cf9581c6cbdddbb8ff95f
+  #   session.idleTimeout: 24h
   encryptedSavedObjects:
     encryptionKey: 97aa4816075f95e8d51bac9159574a19
   task_manager:
