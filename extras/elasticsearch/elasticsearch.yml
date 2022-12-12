@@ -1,4 +1,4 @@
-cluster.initial_master_nodes: "${ES_NODES}"
+# cluster.initial_master_nodes: "${ES_NODES}"
 
 cluster.name: "${CLUSTER_NAME}"
 node.roles: [master, data, ingest]
@@ -13,8 +13,9 @@ xpack:
         enabled: false
     transport:
       ssl:
-        enabled: true
-        verification_mode: "none"
-        certificate_authorities: "certs/ca/ca.crt"
+        enabled: false
+        # enabled: true
+        # verification_mode: "none"
+        # certificate_authorities: "certs/ca/ca.crt"
 
 # logger.org.elasticsearch.discovery: INFO

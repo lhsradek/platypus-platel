@@ -3,7 +3,8 @@
 #     
   heartbeat:
     depends_on:
-      es02:
+      es01:
+#       es02:
         condition: service_healthy
     # Ubuntu - heartbeat
     image: docker.elastic.co/beats/heartbeat:${STACK_VERSION}
@@ -22,7 +23,6 @@
       - ./extras/hosts/hosts:/etc/hosts
       - ./certs:/usr/share/heartbeat/certs
       - ./extras/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
-      - ./logs/heartbeat:/usr/share/heartbeat/logs
       - heartbeat:/usr/share/heartbeat
     environment:
       - APP_HOST=${APP_HOST}

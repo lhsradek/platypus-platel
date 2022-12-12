@@ -3,7 +3,8 @@
 #
   logstash:
     depends_on:
-      es02:
+      es01:
+#       es02:
         condition: service_healthy
     # Ubuntu - logstash 
     image: logstash:${STACK_VERSION}

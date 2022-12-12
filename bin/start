@@ -51,7 +51,8 @@ if [[ -f "$rootPath/docker-compose.extras.yml" ]]; then
     ARGS="$ARGS -f $rootPath/docker-compose.extras.yml"
 fi
 
-mkdir -p $rootPath/logs $rootPath/logs/apm $rootPath/logs/es01 $rootPath/logs/es02 $rootPath/logs/filebeat $rootPath/logs/kibana $rootPath/logs/metricbeat
+# mkdir -p $rootPath/logs $rootPath/logs/apm $rootPath/logs/es01 $rootPath/logs/es02 $rootPath/logs/filebeat $rootPath/logs/kibana $rootPath/logs/metricbeat
+mkdir -p $rootPath/logs $rootPath/logs/apm $rootPath/logs/es01 $rootPath/logs/filebeat $rootPath/logs/kibana $rootPath/logs/metricbeat
 find $rootPath/logs -type d -exec chmod 777 \{\} \;;
 find $rootPath/logs -type f -exec chmod 666 \{\} \;;
 

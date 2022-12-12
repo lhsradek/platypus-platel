@@ -6,7 +6,7 @@
   period: 10s
   hosts: 
     - "http://es01.${APP_NET}:9200"
-    - "http://es02.${APP_NET}:9201"
+    # - "http://es02.${APP_NET}:9201"
   protocol: "http"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"

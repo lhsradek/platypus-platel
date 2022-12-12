@@ -18,7 +18,7 @@
     # Filebeat will choose the paths depending on your OS.
     var.paths:
       - /usr/share/filebeat/elogs/es01/gc.log.[0-9]*
-      - /usr/share/filebeat/elogs/es02/gc.log.[0-9]*
+      # - /usr/share/filebeat/elogs/es02/gc.log.[0-9]*
 
   audit:
     enabled: false

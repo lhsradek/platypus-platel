@@ -3,7 +3,8 @@
 #
   kibana:
     depends_on:
-      es02:
+      es01:
+#       es02:
         condition: service_healthy
     # Ubuntu - kibana 
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}

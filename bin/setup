@@ -23,7 +23,8 @@ fi
 
 APP_ID=$(read_var APP_ID .env)
 
-for NAME in apm es01 es02 filebeat heartbeat kibana logstash metricbeat; do
+# for NAME in apm es01 es02 filebeat heartbeat kibana logstash metricbeat; do
+for NAME in apm es01 filebeat heartbeat kibana logstash metricbeat; do
   if !(docker volume inspect "${APP_ID}-${NAME}" >/dev/null 2>&1); then
     echo "Volume don't exists. First start 'bin/install' or create ${APP_ID}-${NAME}!"
     exit 1
@@ -41,7 +42,7 @@ else
   echo "================= MAKE docker-compose.$RUNENV.yml ================="
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
-  cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
+# cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-logstash.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-kibana.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-apm.yml >> $rootPath/docker-compose.$RUNENV.yml

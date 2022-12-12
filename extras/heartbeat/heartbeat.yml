@@ -38,7 +38,7 @@ heartbeat.monitors:
   tags: [tcp]
   hosts:
     - es01.${APP_NET}:9200
-    - es02.${APP_NET}:9201
+    # - es02.${APP_NET}:9201
     - logstash.${APP_NET}:9600
     - kibana.${APP_NET}:5601
     - filebeat.${APP_NET}:5066
