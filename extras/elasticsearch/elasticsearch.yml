@@ -11,12 +11,12 @@ xpack:
     http:
       ssl:
         enabled: true
-        verification_mode: "certificate"
+        verification_mode: "none"
         certificate_authorities: "certs/ca/ca.crt"
     transport:
       ssl:
         enabled: true
-        verification_mode: "certificate"
+        verification_mode: "none"
         certificate_authorities: "certs/ca/ca.crt"
 
 # logger.org.elasticsearch.discovery: INFO
