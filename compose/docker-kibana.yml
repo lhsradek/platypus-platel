@@ -3,7 +3,7 @@
 #
   kibana:
     depends_on:
-      logstash:
+      es02:
         condition: service_healthy
     # Ubuntu - kibana 
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
@@ -38,12 +38,11 @@
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
-      - ELASTICSEARCH_HOSTS=https://es01.${ELASTIC_NETWORK}:9200        
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
       - ELASTICSEARCH_SSL_SERVER_CERT=/usr/share/kibana/config/certs/kibana/kibana.crt
       - ELASTICSEARCH_SSL_SERVER_CERT_KEY=/usr/share/kibana/config/certs/kibana/kibana.key
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - STV=${STV}
+      - ES_NET=${ES_NET}
       - NODE_OPTIONS=${KIBANA_NODE_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - KIBANA_HOST=${KIBANA_HOST}
@@ -60,8 +59,7 @@
         soft: -1
         hard: -1
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
-      # test: ["CMD-SHELL", "curl -s --cacert config/certs/ca/ca.crt -I https://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
+      test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.6:5601 | grep -q 'HTTP/1.1 302 Found'"]
       interval: 10s
       timeout: 10s
       retries: 500

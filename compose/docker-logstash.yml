@@ -26,8 +26,6 @@
       # - 5001:5001/tcp
       # beat pipeline
       # - ${LOGSTASH_PORT}:5044
-      # elastic-agent pipeline
-      # - 5045:5045
       # metrics
       # - 9600:9600
     volumes:
@@ -39,7 +37,6 @@
       - ./extras/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
       - ./extras/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./extras/logstash/beat.conf:/usr/share/logstash/pipeline/beat.conf
-      - ./extras/logstash/elastic-agent.conf:/usr/share/logstash/pipeline/elastic-agent.conf
       - ./extras/logstash/syslog-access.conf:/usr/share/logstash/pipeline/syslog-access.conf
       - ./extras/logstash/syslog-error.conf:/usr/share/logstash/pipeline/syslog-error.conf
       - logstash:/usr/share/logstash
@@ -59,9 +56,6 @@
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.5:9600 | grep -q 'HTTP/1.1 200 OK'"]
-      # inspiration from https://github.com/elastic/stack-docker/blob/master/docker-compose.yml
-      # increase interval and timeout if api.ssl.enabled: true - and test:
-      # test: ["CMD-SHELL", "bin/logstash -t | grep -q 'Config Validation Result: OK'"]
       interval: 10s
       timeout: 10s
       retries: 500

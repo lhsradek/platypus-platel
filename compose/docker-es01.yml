@@ -25,8 +25,6 @@
       - http.port=9200
       - transport.port=9300
       - discovery.seed_hosts=es02:9301
-      - xpack.security.http.ssl.key=certs/es01/es01.key
-      - xpack.security.http.ssl.certificate=certs/es01/es01.crt
       - xpack.security.transport.ssl.key=certs/es01/es01.key
       - xpack.security.transport.ssl.certificate=certs/es01/es01.crt
       - CLUSTER_NAME=${CLUSTER_NAME}
@@ -40,7 +38,7 @@
         soft: -1
         hard: -1
     healthcheck:
-      test: ["CMD-SHELL", "curl -s --cacert config/certs/ca/ca.crt https://${ES_NET}.2:9200 | grep -q 'missing authentication credentials'" ]
+      test: ["CMD-SHELL", "curl -s http://${ES_NET}.2:9200 | grep -q 'missing authentication credentials'" ]
       interval: 10s
       timeout: 10s
       retries: 500

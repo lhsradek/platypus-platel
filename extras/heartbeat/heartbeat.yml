@@ -18,30 +18,19 @@ heartbeat.config.monitors:
 
 heartbeat.monitors:
 
-# - type: http
-#   schedule: '*/15 * * * * *'
-#   id: http-service
-#   name: HTTP Service
-#   data_stream.namespace: default
-#   service.name: heartbeat-http
-#   username: '${ELASTICSEARCH_USERNAME}'
-#   password: '${ELASTICSEARCH_PASSWORD}'
-#   # api_key: ${AGENT_API_KEY}
-#   check.response.status: [200]
-#   tags: [web]
-#   hosts:
-#     # ELK
-#     - https://es01.${APP_NET}:9200
-#     - https://es02.${APP_NET}:9201
-#     # logstash for finger print:
-#     #- https://logstash.${APP_NET}:5044
-#   ssl:
-#     certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
-#     verification_mode: "none"
-#     # verification_mode: "${VERIFICATION_MODE}"
+- type: http
+  schedule: '*/5 * * * * *'
+  id: http-service
+  name: HTTP Service
+  data_stream.namespace: default
+  service.name: heartbeat-http
+  check.response.status: [401]
+  tags: [web]
+  hosts:
+    - https://traefik.eliasondrej.com
 
 - type: tcp
-  schedule: '*/15 * * * * *'
+  schedule: '*/5 * * * * *'
   id: tcp-service
   name: TCP Service
   data_stream.namespace: default
@@ -65,7 +54,7 @@ heartbeat.monitors:
 #   service.name: heartbeat-icmp
 #   tags: [icmp]
 #   hosts:
-#     - heartbeat.${APP_HOST}.${APP_NET}
+#     - heartbeat.${APP_NET}
 
 heartbeat.scheduler:
   limit: 2
@@ -83,22 +72,18 @@ processors:
 
 output:
   elasticsearch:
-    hosts: ["https://es01.${APP_NET}:9200"]
-    protocol: "https"
+    hosts: ["http://es01.${APP_NET}:9200"]
+    protocol: "http"
     username: '${ELASTICSEARCH_USERNAME}'
     password: '${ELASTICSEARCH_PASSWORD}'
     ssl:
-      enabled: true
-      certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
-      verification_mode: "${VERIFICATION_MODE}"
+      enabled: false
    
 setup:
   ilm.overwrite: true
   kibana:
-    host: "https://kibana.${APP_NET}:5601"
+    host: "http://kibana.${APP_NET}:5601"
     username: '${ELASTICSEARCH_USERNAME}'
     password: '${ELASTICSEARCH_PASSWORD}'
     ssl:
-      enabled: true
-      certificate_authorities: ['${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}']
-      verification_mode: "${VERIFICATION_MODE}"
+      enabled: false

@@ -35,14 +35,6 @@
           echo "Creating certs";
           echo -ne \
           "instances:\n"\
-          "  - name: traefik\n"\
-          "    dns:\n"\
-          "      - localhost\n"\
-          "      - traefik\n"\
-          "      - traefik.${ELASTIC_NETWORK}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.254\n"\
           "  - name: es01\n"\
           "    dns:\n"\
           "      - localhost\n"\
@@ -71,44 +63,10 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - kibana\n"\
-          "      - ${APP_HOST}.${ELASTIC_NETWORK}\n"\
           "      - ${KIBANA_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.6\n"\
           "      - ${ES_IP}\n"\
-          "  - name: heartbeat\n"\
-          "    dns:\n"\
-          "      - localhost\n"\
-          "      - heartbeat\n"\
-          "      - heartbeat.${ELASTIC_NETWORK}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.7\n"\
-          "  - name: filebeat\n"\
-          "    dns:\n"\
-          "      - localhost\n"\
-          "      - filebeat\n"\
-          "      - filebeat.${ELASTIC_NETWORK}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.9\n"\
-          "  - name: metricbeat\n"\
-          "    dns:\n"\
-          "      - localhost\n"\
-          "      - metricbeat\n"\
-          "      - metricbeat.${ELASTIC_NETWORK}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.8\n"\
-          "  - name: apm-server\n"\
-          "    dns:\n"\
-          "      - localhost\n"\
-          "      - apm-server\n"\
-          "      - apm-server.${ELASTIC_NETWORK}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.10\n"\
           > config/certs/instances.yml;
           if [ ! -f config/certs/certs.zip ]; then
             bin/elasticsearch-certutil cert --silent --days 365 --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
@@ -129,21 +87,21 @@
         find . -type f -name logstash.pkcs8.key -exec chmod 644 \{\} \;; # logstash
         #
         echo "Waiting for Elasticsearch availability";
-        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
+        until curl -s http://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         #
         # https://www.elastic.co/guide/en/fleet/master/grant-access-to-elasticsearch.html
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/defining-roles.html
         # https://www.elastic.co/blog/configuring-ssl-tls-and-https-to-secure-elasticsearch-kibana-beats-and-logstash
         #
         echo "Setting logstash_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         echo "Create ${LOGSTASH_WRITE_ROLE}";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
+        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
         echo "Create ${LOGSTASH_USERNAME}";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
-        curl -s -X GET --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://es01:9200/?pretty | grep "cluster_uuid";
+        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
+        curl -s -X GET -u elastic:${ELASTIC_PASSWORD} http://es01:9200/?pretty | grep "cluster_uuid";
         echo "All done!";
       '
     healthcheck:

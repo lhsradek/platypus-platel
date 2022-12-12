@@ -4,15 +4,10 @@ server:
   host: "0.0.0.0"
   shutdownTimeout: "5s"
   socketTimeout: "240000"
-  publicBaseUrl: "http://${KIBANA_HOST}:5601"
+  publicBaseUrl: "https://${KIBANA_HOST}"
   port: 5601
   ssl:
     enabled: false
-  #   redirectHttpFromPort: 443
-  #   enabled: true
-  #   certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-  #   certificate: "${ELASTICSEARCH_SSL_SERVER_CERT}" 
-  #   key: "${ELASTICSEARCH_SSL_SERVER_CERT_KEY}"
 
 monitoring:
   # https://www.elastic.co/guide/en/kibana/master/monitoring-settings-kb.html
@@ -29,12 +24,10 @@ monitoring:
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
   hosts: 
-    - "https://es01.${APP_NET}:9200"
-    - "https://es02.${APP_NET}:9201"
+    - "http://es01.${APP_NET}:9200"
+    - "http://es02.${APP_NET}:9201"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
-  ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-  ssl.verificationMode: "none"
   requestTimeout: 300000
 
 xpack:

@@ -3,7 +3,6 @@
 http.enabled: true
 http.port: 5066
 http.host: "${ES_NET}.8"
-# http.host: "metricbeat.nginx.local"
 
 monitoring:
   enabled: false
@@ -41,14 +40,15 @@ output:
 # ----------------------------- Elasticsearch Output ----------------------------
 
   elasticsearch:
-    hosts: ["https://es01.${APP_NET}:9200"]
-    protocol: "https"
+    hosts: ["http://es01.${APP_NET}:9200"]
+    protocol: "http"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
     ssl:
-      enabled: true
-      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      verification_mode: "${VERIFICATION_MODE}"
+      enabled: false
+      # enabled: true
+      # certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      # verification_mode: "${VERIFICATION_MODE}"
     
 #------------------------------ Setup -------------------------------
   
@@ -60,20 +60,22 @@ setup:
     # _source.enabled: false
 
   elasticsearch:
-    hosts: ["https://es01.${APP_NET}:9200"]
-    protocol: "https"
+    hosts: ["http://es01.${APP_NET}:9200"]
+    protocol: "http"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
     ssl:
-      enabled: true
-      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      verification_mode: "${VERIFICATION_MODE}"
+      enabled: false
+      # enabled: true
+      # certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      # verification_mode: "${VERIFICATION_MODE}"
 
   kibana:
-    host: "https://kibana.${APP_NET}:5601"
+    host: "http://kibana.${APP_NET}:5601"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
     ssl:
-      enabled: true
-      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-      verification_mode: "${VERIFICATION_MODE}"
+      enabled: false
+      # enabled: true
+      # certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      # verification_mode: "${VERIFICATION_MODE}"
