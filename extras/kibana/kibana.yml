@@ -16,19 +16,20 @@ monitoring:
   ui:
     enabled: true
     ccs.enabled: false
-    container:
-      elasticsearch.enabled: true
-      logstash.enabled: true
+    # container:
+    #   elasticsearch.enabled: true
+    #   logstash.enabled: true
   kibana.collection.enabled: false
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
   hosts: 
     - "http://es01.${APP_NET}:9200"
-    - "http://es02.${APP_NET}:9201"
+    # - "http://es02.${APP_NET}:9201"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   requestTimeout: 300000
+  ssl.verificationMode: none
 
 xpack:
   reporting:
