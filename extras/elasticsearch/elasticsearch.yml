@@ -7,7 +7,7 @@ bootstrap.memory_lock: true
 xpack:
   license.self_generated.type: "${LICENSE}"
   security:
-    authc.api_key.enabled: true
+    # authc.api_key.enabled: true
     http:
       ssl:
         enabled: true
