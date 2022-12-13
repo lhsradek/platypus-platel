@@ -4,7 +4,7 @@
 
 - pipeline.id: beat-pipeline
   path.config: "/usr/share/logstash/pipeline/beat.conf"
-- pipeline.id: syslog-access-pipeline
-  path.config: "/usr/share/logstash/pipeline/syslog-access.conf"
-- pipeline.id: syslog-error-pipeline
-  path.config: "/usr/share/logstash/pipeline/syslog-error.conf"
+# - pipeline.id: syslog-access-pipeline
+#   path.config: "/usr/share/logstash/pipeline/syslog-access.conf"
+# - pipeline.id: syslog-error-pipeline
+#   path.config: "/usr/share/logstash/pipeline/syslog-error.conf"
