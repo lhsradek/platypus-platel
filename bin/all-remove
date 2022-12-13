@@ -18,7 +18,7 @@ if [ -f "$rootPath/docker-compose.$RUNENV.yml" ]; then
   exit 1;
 else
   echo "================= REMOVE ALL VOLUME ================="
-  for NAME in apm es01 es02 filebeat kibana logstash metricbeat; do
+  for NAME in apm es01 filebeat kibana logstash metricbeat; do
     echo ${NAME}
     if (docker volume inspect "platel-${NAME}" >/dev/null 2>&1); then
       echo "remove:"

@@ -4,7 +4,6 @@
   heartbeat:
     depends_on:
       es01:
-#       es02:
         condition: service_healthy
     # Ubuntu - heartbeat
     image: docker.elastic.co/beats/heartbeat:${STACK_VERSION}
