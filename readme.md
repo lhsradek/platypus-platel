@@ -13,6 +13,14 @@ create .env file
 
 See https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/config/dokuwiki/data/pages
 
+This is a lightweight version without wiki, no php and single-node elastic.
+
+#### install platel
+```# bin/install```
+
+#### setup platel
+```# bin/setup```
+
 #### run platel
 ```# bin/start```
 
@@ -23,24 +31,20 @@ See https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/confi
 ================= STOP =================
 Stopping platel-kibana    ... done
 Stopping platel-logstash  ... done
-Stopping platel-es02      ... done
 Stopping platel-es01      ... done
 Removing platel-kibana    ... done
 Removing platel-logstash  ... done
-Removing platel-es02      ... done
 Removing platel-es01      ... done
 Removing platel-setup     ... done
 Removing platel
 ================= START ================
 Pulling setup       ... done
 Pulling es01        ... done
-Pulling es02        ... done
 Pulling kibana      ... done
 Pulling logstash    ... done
 Creating network "platel" with driver "bridge"
 Creating platel-setup ... done
 Creating platel-es01  ... done
-Creating platel-es02  ... done
 Creating platel-kibana    ... done
 Creating platel-logstash  ... done
 ```
@@ -53,27 +57,28 @@ Creating platel-logstash  ... done
 
 #### Reposirories
 
-| REPOSITORY                                            |  TAG       | SIZE        | OPTIONAL
-| ----------------------------------------------------- | ---------- | ----------- | ----------------
-| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.5.2      | 1.29GB      |
-| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.5.2      | 707MB       |
-| [logstash](https://hub.docker.com/_/logstash)         | 8.5.2      | 746MB       |
-| docker.elastic.co/apm/apm-server                      | 8.5.2      | 149MB       |
-| docker.elastic.co/beats/filebeat                      | 8.5.2      | 281MB       |
-| docker.elastic.co/beats/metricbeat                    | 8.5.2      | 316MB       |
+| REPOSITORY                                            |  TAG       | SIZE        |
+| ----------------------------------------------------- | ---------- | ----------- |
+| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.5.3      | 1.29GB      |
+| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.5.3       | 711MB       |
+| [logstash](https://hub.docker.com/_/logstash)         | 8.5.3      | 740MB       |
+| docker.elastic.co/apm/apm-server                      | 8.5.3      | 148MB       |
+| docker.elastic.co/beats/filebeat                      | 8.5.3      | 282MB       |
+| docker.elastic.co/beats/heartbeat                     | 8.5.3      | 1.88GB      |
+| docker.elastic.co/beats/metricbeat                    | 8.5.3      | 317MB       |
 
 -----
 
-| IMAGES               | PORTS                  | NAMES              | HOSTNAMES                            | OPTIONAL  
-| -------------------- | ---------------------- | ------------------ | ------------------------------------ | --------
-| elasticsearch        |                        | platel-setup       | ```setup.pt.platel```                | *
-| elasticsearch        | 9200/tcp, 9300/tcp     | platel-es01        | ```es01.pt.platel```                 |
-| elasticsearch        | 9201/tcp, 9301/tcp     | platel-es02        | ```es02.pt.platel```                 | 
-| kibana               | 5601/tcp               | platel-kibana      | ```kibana.pt.platel```               |
-| logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.pt.platel```             | *
-| apm-server           | 5066/tcp, 8200/tcp     | platel-apm-server  | ```apm-server.pt.platel```           | *
-| filebeat             | 5066/tcp               | platel-filebeat    | ```filebeat.pt.platel```             | *
-| metricbeat           | 5066/tcp               | platel-metricbeat  | ```metricbeat.pt.platel```           | *
+| IMAGES               | PORTS                  | NAMES              | HOSTNAMES                            |  
+| -------------------- | ---------------------- | ------------------ | ------------------------------------ |
+| elasticsearch        |                        | platel-setup       | ```setup.platel```                   |
+| elasticsearch        | 9200/tcp, 9300/tcp     | platel-es01        | ```es01.platel```                    |
+| kibana               | 5601/tcp               | platel-kibana      | ```kibana.platel```                  |
+| logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.platel```                |
+| apm-server           | 8200/tcp               | platel-apm-server  | ```apm-server.platel```              |
+| filebeat             |                        | platel-filebeat    | ```filebeat.platel```                |
+| heartbeat            |                        | platel-heartbbeat  | ```heartbeat.platel```               |
+| metricbeat           |                        | platel-metricbeat  | ```metricbeat.platel```              |
 
 
 -----
@@ -83,7 +88,7 @@ Creating platel-logstash  ... done
 Set ```CLUSTER_UUID```  in the ```.env```
 
 ```
-# curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01.docker.nginx.local:9200/?pretty | grep cluster_uuid
+# curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid
 ```
 display such like this:
 ```
