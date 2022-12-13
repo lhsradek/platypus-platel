@@ -79,21 +79,19 @@
         find . -type f -name logstash.pkcs8.key -exec chmod 644 \{\} \;; # logstash
         #
         echo "Waiting for Elasticsearch availability";
-        until curl -s http://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
+        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 20; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
-        #
+        until curl -s --cacert config/certs/ca/ca.crt -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${ELASTIC_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
         # https://www.elastic.co/guide/en/fleet/master/grant-access-to-elasticsearch.html
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/defining-roles.html
         # https://www.elastic.co/blog/configuring-ssl-tls-and-https-to-secure-elasticsearch-kibana-beats-and-logstash
-        #
         echo "Setting logstash_system password";
-        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
-        echo "Create ${LOGSTASH_WRITE_ROLE}";
-        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/role/${LOGSTASH_WRITE_ROLE} -d "{\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
-        echo "Create ${LOGSTASH_USERNAME}";
-        until curl -s -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" http://es01:9200/_security/user/${LOGSTASH_USERNAME} -d "{\"roles\":[\"${LOGSTASH_WRITE_ROLE}\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
-        curl -s -X GET -u elastic:${ELASTIC_PASSWORD} http://es01:9200/?pretty | grep "cluster_uuid";
+        until curl -s --cacert config/certs/ca/ca.crt -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${ELASTIC_PASSWORD}\"}" | grep -q "^{}"; do sleep 30; done;
+        echo "Create logstash_write_role";
+        until curl -s --cacert config/certs/ca/ca.crt -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/role/logstash_write_role -d "{\"cluster\":[\"manage_index_templates\",\"manage_ilm\"],\"run_as\":[\"logstash_system\",\"elastic\"],\"indices\":[{\"names\":[\"logstash*\",\"logs-*\",\"metrics-*\",\"filebeat-*\",\"metricbeat-*\"],\"privileges\":[\"read\",\"write\",\"create\",\"index\",\"create_index\",\"create_doc\",\"manage\",\"manage_ilm\",\"monitor\",\"auto_configure\",\"delete_index\",\"all\"]}]}" | grep -q "^{"; do sleep 30; done;
+        echo "Create logstash_writer";
+        until curl -s --cacert config/certs/ca/ca.crt -X POST -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_writer -d "{\"roles\":[\"logstash_write_role\", \"logstash_admin\", \"logstash_system\"],\"full_name\":\"Logstash Writer\",\"password\":\"${ELASTIC_PASSWORD}\"}" | grep -q "^{"; do sleep 30; done;
+        curl -s --cacert config/certs/ca/ca.crt -X GET -u elastic:${ELASTIC_PASSWORD} https://es01:9200/?pretty | grep "cluster_uuid";
         echo "All done!";
       '
     healthcheck:

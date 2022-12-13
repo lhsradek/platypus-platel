@@ -16,29 +16,28 @@ monitoring:
   ui:
     enabled: true
     ccs.enabled: false
-    # container:
-    #   elasticsearch.enabled: true
-    #   logstash.enabled: true
+    container:
+      elasticsearch.enabled: true
+      logstash.enabled: true
   kibana.collection.enabled: false
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
-  hosts: 
-    - "http://es01.${APP_NET}:9200"
-    # - "http://es02.${APP_NET}:9201"
+  hosts: ["https://es01.${APP_NET}:9200"]
+  requestTimeout: 300000
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
-  requestTimeout: 300000
-  ssl.verificationMode: none
+  ssl.certificateAuthorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+  ssl.verificationMode: "${VERIFICATION_MODE}"
 
 xpack:
   reporting:
     kibanaServer.hostname: "kibana"
     roles.enabled: false
     encryptionKey: 8de551ca1432f0dcf3ad2908472562b1
-  # security:
-  #   encryptionKey: 363792db7b8cf9581c6cbdddbb8ff95f
-  #   session.idleTimeout: 24h
+  security:
+    encryptionKey: 363792db7b8cf9581c6cbdddbb8ff95f
+    session.idleTimeout: 24h
   encryptedSavedObjects:
     encryptionKey: 97aa4816075f95e8d51bac9159574a19
   task_manager:

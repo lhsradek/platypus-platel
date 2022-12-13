@@ -44,7 +44,6 @@ else
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.2     es01       es01.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
-# echo "${ES_NET}.3     es02       es01.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.5     logstash   logstash.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.6     kibana     kibana.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.7     heartbeat  heartbeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
@@ -54,7 +53,6 @@ else
   echo "${ES_NET}.254   traefik    traefik.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml
-# cat $rootPath/compose/docker-es02.yml >> $rootPath/docker-compose.$RUNENV.yml
 # cat $rootPath/compose/docker-setup-mamka.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-setup-eliasondrej.yml >> $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-end.yml >> $rootPath/docker-compose.$RUNENV.yml

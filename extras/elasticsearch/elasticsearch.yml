@@ -6,21 +6,20 @@ bootstrap.memory_lock: false
 
 discovery.type: single-node
 
+xpack.security.enabled: true
+xpack.security.authc.api_key.enabled: true
 xpack.ml.enabled: false
-xpack.security.enabled: false
-xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
 
-# xpack:
-#   license.self_generated.type: "${LICENSE}"
-#   security:
-#     authc.api_key.enabled: true
-#     http:
-#       ssl:
-#         enabled: false
-#     transport:
-#       ssl:
-#         enabled: true
-#         verification_mode: "none"
-#         certificate_authorities: "certs/ca/ca.crt"
+xpack:
+  license.self_generated.type: "${LICENSE}"
+  security:
+    authc.api_key.enabled: true
+    http:
+      ssl:
+        enabled: true
+        verification_mode: "none"
+        # verification_mode: "${VERIFICATION_MODE}"
+        certificate_authorities: "certs/ca/ca.crt"
 
 # logger.org.elasticsearch.discovery: INFO

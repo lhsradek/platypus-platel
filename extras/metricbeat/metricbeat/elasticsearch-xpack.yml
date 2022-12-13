@@ -4,15 +4,11 @@
 - module: elasticsearch
   xpack.enabled: true
   period: 10s
-  hosts: 
-    - "http://es01.${APP_NET}:9200"
-    # - "http://es02.${APP_NET}:9201"
-  protocol: "http"
+  hosts: ["https://es01.${APP_NET}:9200"]
+  protocol: "https"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
   ssl:
-    enabled: false
-    # enabled: true
-    # certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
-    # verification_mode: "${VERIFICATION_MODE}"
-
+    enabled: true
+    certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    verification_mode: "${VERIFICATION_MODE}"

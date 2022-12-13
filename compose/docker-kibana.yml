@@ -4,7 +4,6 @@
   kibana:
     depends_on:
       es01:
-#       es02:
         condition: service_healthy
     # Ubuntu - kibana 
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
@@ -31,18 +30,11 @@
       - ./extras/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
       - kibana:/usr/share/kibana
     environment:
-      - APP_HOST=${APP_HOST}
       - APP_NET=${ELASTIC_NETWORK}
       - SERVERNAME=kibana.${ELASTIC_NETWORK}
-      - STACK_VERSION=${STACK_VERSION}
-      - CLUSTER_NAME=${CLUSTER_NAME}
-      - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=kibana_system
-      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
-      - ELASTICSEARCH_SSL_SERVER_CERT=/usr/share/kibana/config/certs/kibana/kibana.crt
-      - ELASTICSEARCH_SSL_SERVER_CERT_KEY=/usr/share/kibana/config/certs/kibana/kibana.key
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - ES_NET=${ES_NET}
       - NODE_OPTIONS=${KIBANA_NODE_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}

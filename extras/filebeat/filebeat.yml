@@ -20,12 +20,14 @@ output:
    
   # for /filebeat -e setup --dashboards:
   # elasticsearch:
-  #   hosts: ["http://es01.${APP_NET}:9200"]
-  #   protocol: "http"
+  #   hosts: ["https://es01.${APP_NET}:9200"]
+  #   protocol: "https"
   #   username: "${ELASTICSEARCH_USERNAME}"
   #   password: "${ELASTICSEARCH_PASSWORD}"
   #   ssl:
-  #     enabled: false
+  #     enabled: true
+  #     certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+  #     verification_mode: "${VERIFICATION_MODE}"
 
 setup:      
   ilm.overwrite: true
@@ -34,13 +36,15 @@ setup:
     #index.codec: best_compression
     #_source.enabled: false
   elasticsearch:
-    hosts: ["http://es01.${APP_NET}:9200"]
-    protocol: "http"
+    hosts: ["https://es01.${APP_NET}:9200"]
+    protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
     ssl:
-      enabled: false
-  
+      enabled: true
+      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      verification_mode: "${VERIFICATION_MODE}"
+
   kibana:
     host: "http://kibana.${APP_NET}:5601"
     username: '${ELASTICSEARCH_USERNAME}'

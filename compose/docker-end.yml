@@ -5,9 +5,6 @@ volumes:
   esdata01:
     external: true
     name: "${APP_ID}-es01"
-#  esdata02:
-#    external: true
-#    name: "${APP_ID}-es02"
   filebeat:
     external: true
     name: "${APP_ID}-filebeat"

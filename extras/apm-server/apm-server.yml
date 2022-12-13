@@ -14,13 +14,15 @@ apm-server:
     enabled: true
     output:
       elasticsearch:
-        hosts: ["http://es01.${APP_NET}:9200"]
-        protocol: "http"
-        #api_key: "id:api_key"
-        # username: "apm_system"
+        hosts: ["https://es01.${APP_NET}:9200"]
+        protocol: "https"
         username: "${ELASTICSEARCH_USERNAME}"
         password: "${ELASTICSEARCH_PASSWORD}"
-        ssl.enabled: false
+        ssl:
+          enabled: true
+          certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+          verification_mode: "${VERIFICATION_MODE}"
+          
       # Index pattern in which to search for source maps, when fetching source maps from Elasticsearch.
         index_pattern: "apm-*-sourcemap*"
 
@@ -29,8 +31,6 @@ apm-server:
     enabled: true
     host: "http://kibana.${APP_NET}:5601"
     protocol: "http"
-    # api_key: "${AGENT_API_KEY}"
-    # username: "apm_system"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
     ssl.enabled: false
@@ -42,12 +42,14 @@ apm-server:
 #-------------------------- Elasticsearch output --------------------------
 output.elasticsearch:
   enabled: true
-  hosts: ["http://es01.${APP_NET}:9200"]
-  protocol: "http"
-  # username: "apm_system"
+  hosts: ["https://es01.${APP_NET}:9200"]
+  protocol: "https"
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
-  ssl.enabled: false
+  ssl:
+    enabled: true
+    certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    verification_mode: "${VERIFICATION_MODE}"
 
 #=============================== HTTP Endpoint ===============================
 
@@ -62,8 +64,10 @@ monitoring:
   cluster_uuid: "${CLUSTER_UUID}"
 
   elasticsearch:
+    hosts: ["https://es01.${APP_NET}:9200"]
+    protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"
-    hosts: ["http://es01.${APP_NET}:9200"]
-    protocol: "http"
-    ssl.enabled: false
+    ssl.enabled: true
+    ssl.certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+    ssl.verification_mode: "${VERIFICATION_MODE}"

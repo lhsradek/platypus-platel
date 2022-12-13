@@ -19,7 +19,7 @@ heartbeat.config.monitors:
 heartbeat.monitors:
 
 - type: http
-  schedule: '*/5 * * * * *'
+  schedule: '*/1 * * * * *'
   id: http-service
   name: HTTP Service
   data_stream.namespace: default
@@ -30,7 +30,7 @@ heartbeat.monitors:
     - https://traefik.eliasondrej.com
 
 - type: tcp
-  schedule: '*/5 * * * * *'
+  schedule: '*/1 * * * * *'
   id: tcp-service
   name: TCP Service
   data_stream.namespace: default
@@ -72,13 +72,15 @@ processors:
 
 output:
   elasticsearch:
-    hosts: ["http://es01.${APP_NET}:9200"]
-    protocol: "http"
-    username: '${ELASTICSEARCH_USERNAME}'
-    password: '${ELASTICSEARCH_PASSWORD}'
+    hosts: ["https://es01.${APP_NET}:9200"]
+    protocol: "https"
+    username: "${ELASTICSEARCH_USERNAME}"
+    password: "${ELASTICSEARCH_PASSWORD}"
     ssl:
-      enabled: false
-   
+      enabled: true
+      certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
+      verification_mode: "${VERIFICATION_MODE}"
+
 setup:
   ilm.overwrite: true
   kibana:

@@ -8,5 +8,3 @@
   xpack.enabled: true
   period: 10s
   hosts: ["logstash.${APP_NET}:9600"]
-  #username: "logstash_system"
-  #password: "${ELASTICSEARCH_PASSWORD}"

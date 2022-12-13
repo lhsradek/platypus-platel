@@ -29,12 +29,10 @@
       - ./logs/apm:/usr/share/apm-server/logs
       - apm:/usr/share/apm-server
     environment:
-      - APP_HOST=${APP_HOST}
       - APP_NET=${ELASTIC_NETWORK}
-      - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=${APM_PASSWORD}
+      - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/apm-server/certs/ca/ca.crt
       - ES_NET=${ES_NET}
       - STAGE=${STAGE}
