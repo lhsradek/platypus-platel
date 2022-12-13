@@ -19,7 +19,7 @@ heartbeat.config.monitors:
 heartbeat.monitors:
 
 - type: http
-  schedule: '*/1 * * * * *'
+  schedule: '*/5 * * * * *'
   id: http-service
   name: HTTP Service
   data_stream.namespace: default
@@ -30,7 +30,7 @@ heartbeat.monitors:
     - https://traefik.eliasondrej.com
 
 - type: tcp
-  schedule: '*/1 * * * * *'
+  schedule: '*/5 * * * * *'
   id: tcp-service
   name: TCP Service
   data_stream.namespace: default
