@@ -8,7 +8,7 @@ discovery.type: single-node
 
 xpack.security.enabled: true
 xpack.security.authc.api_key.enabled: true
-xpack.ml.enabled: false
+# xpack.ml.enabled: false
 xpack.security.transport.ssl.enabled: false
 
 xpack:
