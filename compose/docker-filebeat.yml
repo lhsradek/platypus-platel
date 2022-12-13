@@ -19,16 +19,14 @@
         ipv4_address: ${ES_NET}.9
     user: root
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/hosts/hosts:/etc/hosts
-      - /:/hostfs:ro
       - ./certs:/usr/share/filebeat/certs
       - ./extras/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./extras/filebeat/filebeat:/root/bin
       - ./logs/filebeat:/usr/share/filebeat/logs
       - ./logs/apm:/usr/share/filebeat/elogs/apm-server
       - ./logs/es01:/usr/share/filebeat/elogs/es01
-      - ./logs/es02:/usr/share/filebeat/elogs/es02
       - ./logs/kibana:/usr/share/filebeat/elogs/kibana
       # - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
       - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
