@@ -11,4 +11,4 @@
       # - /usr/share/filebeat/elogs/traefik/access.json
       # - /usr/share/filebeat/elogs/traefik/traefik.log
       - /usr/share/filebeat/elogs/traefik/access.log.json
-      - /usr/share/filebeat/elogs/traefik/traefik.log.json
+      # - /usr/share/filebeat/elogs/traefik/traefik.log.json
