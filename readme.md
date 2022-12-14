@@ -2,6 +2,12 @@
 
 with Elasticsearch, Logstash and Kibana ([ELK](https://www.elastic.co/))
 
+This is a lightweight version without wiki, no php, no enterprise search and single-node elastic.
+
+See:
+* https://github.com/lhsradek/platypus-lhsdock
+* https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/config/dokuwiki/data/pages
+
 #### setup
 create .env file
 
@@ -11,11 +17,6 @@ create .env file
 
 ```# bin/setup```
 
-See:
-* https://github.com/lhsradek/platypus-lhsdock
-* https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/config/dokuwiki/data/pages
-
-This is a lightweight version without wiki, no php, no enterprise search and single-node elastic.
 
 #### install platel
 ```# bin/install```
