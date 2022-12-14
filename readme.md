@@ -11,9 +11,11 @@ create .env file
 
 ```# bin/setup```
 
-See https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/config/dokuwiki/data/pages
+See:
+* https://github.com/lhsradek/platypus-lhsdock
+* https://github.com/lhsradek/platypus-lhsdock/tree/main/extras/dokuwiki/config/dokuwiki/data/pages
 
-This is a lightweight version without wiki, no php and single-node elastic.
+This is a lightweight version without wiki, no php, no enterprise search and single-node elastic.
 
 #### install platel
 ```# bin/install```
