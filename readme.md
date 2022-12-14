@@ -2,7 +2,7 @@
 
 with Elasticsearch, Logstash and Kibana ([ELK](https://www.elastic.co/))
 
-This is a lightweight version without wiki, no php, no enterprise search and single-node elastic.
+This is a lightweight version without wiki, no php, no cerebro, no enterprise search and single-node elastic.
 
 See:
 * https://github.com/lhsradek/platypus-lhsdock
