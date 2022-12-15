@@ -18,16 +18,16 @@ heartbeat.config.monitors:
 
 heartbeat.monitors:
 
-- type: http
-  schedule: '* * * * * *'
-  id: http-service
-  name: HTTP Service
-  data_stream.namespace: default
-  service.name: heartbeat-http
-  check.response.status: [401]
-  tags: [web]
-  hosts:
-    - https://traefik.eliasondrej.com
+# - type: http
+#   schedule: '* * * * * *'
+#   id: http-service
+#   name: HTTP Service
+#   data_stream.namespace: default
+#   service.name: heartbeat-http
+#   check.response.status: [401]
+#   tags: [web]
+#   hosts:
+#     - https://traefik.eliasondrej.com
 
 - type: tcp
   schedule: '* * * * * *'
