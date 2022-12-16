@@ -60,7 +60,7 @@ else
   echo "================= START INSTALL ================"
   ${scriptPath}/start
   echo
-  echo "Use 'curl -s -X GET -u elastic:[KIBANA_PASSWORD] http://es01:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit or see 'docker logs -f ${APP_ID}-setup'"
+  echo "Use 'curl -s -X GET -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid' after setup set kibana password and exit or see 'docker logs -f ${APP_ID}-setup'"
   echo
   echo "Set CLUSTER-UUID to '.env' and start 'bin/setup'"
   echo
