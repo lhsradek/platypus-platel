@@ -6,10 +6,13 @@
 # docker stop platel-filebeat
 # docker start platel-filebeat
 
-rm /usr/share/filebeat/modules.d/elasticsearch.yml.disabled
+rm -f /usr/share/filebeat/modules.d/elasticsearch.yml
+rm -f /usr/share/filebeat/modules.d/elasticsearch.yml.disabled
 cp /root/bin/elasticsearch.yml  /usr/share/filebeat/modules.d/elasticsearch.yml
-rm /usr/share/filebeat/modules.d/kibana.yml.disabled
+rm -f /usr/share/filebeat/modules.d/kibana.yml
+rm -f /usr/share/filebeat/modules.d/kibana.yml.disabled
 cp /root/bin/kibana.yml  /usr/share/filebeat/modules.d/kibana.yml
-rm /usr/share/filebeat/modules.d/traefik.yml.disabled
+rm -f /usr/share/filebeat/modules.d/traefik.yml
+rm -f /usr/share/filebeat/modules.d/traefik.yml.disabled
 cp /root/bin/traefik.yml  /usr/share/filebeat/modules.d/traefik.yml
 chown root.root /usr/share/filebeat/modules.d/*
