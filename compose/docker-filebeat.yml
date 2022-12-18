@@ -32,6 +32,8 @@
       - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
       - filebeat:/usr/share/filebeat
     environment:
+      - APP_ID=${APP_ID}
+      - APP_HOST=${APP_HOST}
       - APP_NET=${ELASTIC_NETWORK}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME}
