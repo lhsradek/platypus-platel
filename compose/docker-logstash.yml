@@ -52,6 +52,7 @@
       - LOGSTASH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTIC_USERNAME=${ELASTIC_USERNAME}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - TRAEFIK_LOG=${TRAEFIK_LOG}
     healthcheck:
       test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.5:9600 | grep -q 'HTTP/1.1 200 OK'"]
       interval: 10s
