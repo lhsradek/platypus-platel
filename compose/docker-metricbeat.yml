@@ -29,6 +29,7 @@
       - metricbeat:/usr/share/metricbeat
     environment:
       - APP_NET=${ELASTIC_NETWORK}
+      - APP_HOST=${APP_HOST}
       - CLUSTER_NAME=${CLUSTER_NAME}
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME}
