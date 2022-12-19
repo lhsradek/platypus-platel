@@ -28,6 +28,7 @@
       - ./logs/metricbeat:/usr/share/metricbeat/logs
       - metricbeat:/usr/share/metricbeat
     environment:
+      - APP_ID=${APP_ID}
       - APP_NET=${ELASTIC_NETWORK}
       - APP_HOST=${APP_HOST}
       - CLUSTER_NAME=${CLUSTER_NAME}
