@@ -42,6 +42,7 @@
       - ES_NET=${ES_NET}
       - LOGSTASH_SERVER_CERT=/usr/share/filebeat/certs/logstash/logstash.crt
       - LOGSTASH_SERVER_CERT_KEY=/usr/share/filebeat/certs/logstash/logstash.key
+      - STAGE=${STAGE}
       - TRAEFIK_LOG=${TRAEFIK_LOG}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
 
