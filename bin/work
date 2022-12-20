@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+read_var() {
+    VAR=$(grep -m 1 "$1" "$2" | xargs)
+    IFS="=" read -ra VAR <<< "$VAR"
+    echo "${VAR[1]}"
+}
+
+rootPath="$(dirname "${scriptPath}")"
+
+DOCKER_NETWORK=$(read_var DOCKER_NETWORK .env)
+
+RUNENV=$1
+
+if [[ -z "$RUNENV" ]]; then
+    RUNENV="local"
+fi
+
+ARGS="-f $rootPath/docker-compose.$RUNENV.yml"
+
+if [ -f "$rootPath/docker-compose.$RUNENV.yml" ]; then
+  echo "================= STOP ================="
+  docker-compose ${ARGS} down --remove-orphans
+  echo
+  echo "Nothing to do, docker-compose.$RUNENV.yml exist. Use 'rm docker-compose.$RUNENV.yml' first!"
+  echo
+  exit 1;
+else
+  cat $rootPath/compose/docker-work.yml >> $rootPath/docker-compose.$RUNENV.yml
+  docker-compose ${ARGS} up -d
+fi
