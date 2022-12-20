@@ -8,7 +8,7 @@
 
 rm -f /usr/share/filebeat/modules.d/elasticsearch.yml
 rm -f /usr/share/filebeat/modules.d/elasticsearch.yml.disabled
-cp /root/bin/elasticsearch.yml  /usr/share/filebeat/modules.d/elasticsearch.yml
+cp /root/bin/elasticsearch.yml  /usr/share/filebeat/modules.d/elasticsearch.yml.disabled
 rm -f /usr/share/filebeat/modules.d/kibana.yml
 rm -f /usr/share/filebeat/modules.d/kibana.yml.disabled
 cp /root/bin/kibana.yml  /usr/share/filebeat/modules.d/kibana.yml
