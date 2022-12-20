@@ -98,7 +98,9 @@ display such like this:
   "cluster_uuid" : "Eft1LUxGR5af29XSygQMHA",
 ```
 
-Or see ```docker logs -f platel-setup```
+Or see
+```# docker logs -f platel-setup
+```
 -----
 
 * https://www.facebook.com/radek.kadner/
