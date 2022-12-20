@@ -99,7 +99,8 @@ display such like this:
 ```
 
 Or see
-```# docker logs -f platel-setup
+```
+# docker logs -f platel-setup
 ```
 -----
 
