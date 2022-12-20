@@ -93,6 +93,7 @@ Set ```CLUSTER_UUID```  in the ```.env```
 ```
 # curl -s -X GET --cacert certs/ca/ca.crt -u elastic:[KIBANA_PASSWORD] https://es01:9200/?pretty | grep cluster_uuid
 ```
+
 display such like this:
 ```
   "cluster_uuid" : "Eft1LUxGR5af29XSygQMHA",
