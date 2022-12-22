@@ -25,7 +25,7 @@ filebeat.inputs:
   - type: filestream
     id: traefik.error
     paths:
-      - ${TRAEFIK_LOG}
+      - /usr/share/filebeat/elogs/traefik/${TRAEFIK_LOG}
 
 output:
   logstash:
