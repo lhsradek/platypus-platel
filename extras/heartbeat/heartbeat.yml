@@ -81,11 +81,3 @@ output:
       certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
       verification_mode: "${VERIFICATION_MODE}"
 
-setup:
-  ilm.overwrite: true
-  kibana:
-    host: "http://kibana.${APP_NET}:5601"
-    username: '${ELASTICSEARCH_USERNAME}'
-    password: '${ELASTICSEARCH_PASSWORD}'
-    ssl:
-      enabled: false
