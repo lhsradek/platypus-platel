@@ -28,6 +28,7 @@
       - ./logs/apm:/usr/share/filebeat/elogs/apm-server
       - ./logs/es01:/usr/share/filebeat/elogs/es01
       - ./logs/kibana:/usr/share/filebeat/elogs/kibana
+      - ./logs/nginx:/usr/share/filebeat/elogs/nginx/default
       # - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
       - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
       - filebeat:/usr/share/filebeat
