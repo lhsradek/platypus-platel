@@ -28,24 +28,24 @@ filebeat.inputs:
       - /usr/share/filebeat/elogs/traefik/${TRAEFIK_LOG}
 
 output:
-  logstash:
-    enabled: true
-    hosts: ["logstash.${APP_NET}:5044"]
-    index: "logs"
-   
-  # for /filebeat -e setup --dashboards:
-  # elasticsearch:
-  #   hosts: ["https://es01.${APP_NET}:9200"]
-  #   protocol: "https"
+  logstash:                            # # 
+    enabled: true                        # 
+    hosts: ["logstash.${APP_NET}:5044"]  # 
+    index: "logs"                        # 
+                                          
+  # for /filebeat -e setup --dashboards:                                          #  
+  # elasticsearch:                            
+  #   hosts: ["https://es01.${APP_NET}:9200"] 
+  #   protocol: "https"                       
   #   username: "${ELASTICSEARCH_USERNAME}"
   #   password: "${ELASTICSEARCH_PASSWORD}"
   #   ssl:
   #     enabled: true
   #     certificate_authorities: ["${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES}"]
   #     verification_mode: "${VERIFICATION_MODE}"
-  #   index: "logs"
-
-setup:      
+  #   # index: "logs"
+  
+se# tup:      
   ilm.overwrite: true
   template.settings:
     index.number_of_shards: 2

@@ -3,3 +3,4 @@ docker-compose*
 logs/
 certs/
 extras/hosts/
+extras/nginx/htpasswd

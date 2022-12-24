@@ -10,9 +10,6 @@
     # Filebeat will choose the paths depending on your OS.
     var.paths:
       - /usr/share/filebeat/elogs/nginx/default/access.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/access.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/pma.access.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/wp.access.log
         
   # Error logs
   error:
@@ -22,9 +19,6 @@
     # Filebeat will choose the paths depending on your OS.
     var.paths:
       - /usr/share/filebeat/elogs/nginx/default/error.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/error.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/pma.error.log
-      - /usr/share/filebeat/elogs/nginx/platypus-wordpress-mysql/wp.error.log
 
   # Ingress-nginx controller logs. This is disabled by default. It could be used in Kubernetes environments to parse ingress-nginx logs
   ingress_controller:

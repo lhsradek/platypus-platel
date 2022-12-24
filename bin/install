@@ -50,6 +50,7 @@ else
   echo "${ES_NET}.8     metricbeat metricbeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.9     filebeat   filebeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.10    apm-server apm-server.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.20    work       work.kibana.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.254   traefik    traefik.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   cat $rootPath/compose/docker-head.yml > $rootPath/docker-compose.$RUNENV.yml
   cat $rootPath/compose/docker-es01.yml >> $rootPath/docker-compose.$RUNENV.yml

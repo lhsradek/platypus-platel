@@ -3,6 +3,7 @@
 cluster.name: "${CLUSTER_NAME}"
 node.roles: [master, data, ingest]
 bootstrap.memory_lock: false
+# bootstrap.memory_lock: true
 
 discovery.type: single-node
 

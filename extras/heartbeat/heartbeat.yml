@@ -41,6 +41,7 @@ heartbeat.monitors:
     # - es02.${APP_NET}:9201
     - logstash.${APP_NET}:9600
     - kibana.${APP_NET}:5601
+    - work.kibana.${APP_NET}:80
     - filebeat.${APP_NET}:5066
     - apm-server.${APP_NET}:5066
     - heartbeat.${APP_NET}:5066
