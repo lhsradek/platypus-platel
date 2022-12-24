@@ -32,6 +32,7 @@
     environment:
       - APP_NET=${ELASTIC_NETWORK}
       - SERVERNAME=kibana.${ELASTIC_NETWORK}
+      - ELASTICSEARCH_HOSTS=https://es01.${ELASTIC_NETWORK}:9200
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
