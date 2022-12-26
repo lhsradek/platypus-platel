@@ -10,9 +10,9 @@
 version: '3.9'
 
 networks:
-  # default: # NO on VPS traefik have network elastic
-  #   external: true
-  #   name: ${DOCKER_NETWORK}
+  default: # NO on VPS traefik have network elastic
+    external: true
+    name: ${DOCKER_NETWORK}
   elastic:
     external: true
     name: ${ELASTIC_NETWORK}
