@@ -7,9 +7,6 @@
     container_name: "${APP_ID}-es01"
     hostname: "es01.${ELASTIC_NETWORK}"
     networks:
-      # for traefik:
-      default:
-      # local
       elastic:
         ipv4_address: ${ES_NET}.2
     # ports:

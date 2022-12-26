@@ -15,9 +15,6 @@
     container_name: "${APP_ID}-kibana"
     hostname: "kibana.${ELASTIC_NETWORK}"
     networks:
-      # for traefik:
-      default:
-      # local network:
       elastic:
         ipv4_address: ${ES_NET}.6
     # ports:

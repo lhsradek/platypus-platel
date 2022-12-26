@@ -9,9 +9,6 @@
           memory: ${MEM_LIMIT}
     restart: ${DOCKER_RESTART_POLICY}
     networks:
-      # for traefik:
-      default:
-      # local network:
       elastic:
         ipv4_address: ${ES_NET}.20
         
