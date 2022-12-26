@@ -43,7 +43,7 @@ else
   mkdir -p $rootPath/extras/hosts
   echo "::1               localhost ip6-localhost ip6-loopback" > $rootPath/extras/hosts/hosts
   echo "127.0.0.1         localhost" >> $rootPath/extras/hosts/hosts
-  echo "${ES_NET}.2     es01       es01.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
+  echo "${ES_NET}.2     es01       es01.${ELASTIC_NETWORK} es01.kibana.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.5     logstash   logstash.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.6     kibana     kibana.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts
   echo "${ES_NET}.7     heartbeat  heartbeat.${ELASTIC_NETWORK}" >> $rootPath/extras/hosts/hosts

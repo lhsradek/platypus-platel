@@ -39,6 +39,7 @@
           "      - localhost\n"\
           "      - es01\n"\
           "      - es01.${ELASTIC_NETWORK}\n"\
+          "      - es01.kibana.${ELASTIC_NETWORK}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.2\n"\

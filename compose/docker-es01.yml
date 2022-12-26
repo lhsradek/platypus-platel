@@ -8,7 +8,7 @@
     hostname: "es01.${ELASTIC_NETWORK}"
     networks:
       # for traefik:
-      default:
+      # default:
       # local
       elastic:
         ipv4_address: ${ES_NET}.2
@@ -35,14 +35,14 @@
       - ES_JAVA_OPTS=${ES01_JAVA_OPTS}
       - LICENSE=${LICENSE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=${DOCKER_NETWORK}"
-      - "traefik.http.routers.es01-public.rule=Host(`es.${KIBANA_HOST}`)"
-      - "traefik.http.routers.es01-public.entrypoints=https"
-      - "traefik.http.routers.es01-public.tls=true"
-      - "traefik.http.services.es01-${APP_ID}.loadbalancer.server.port=${ES_PORT}"
-      - "traefik.http.services.es01-${APP_ID}.loadbalancer.server.scheme=https"
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.docker.network=${DOCKER_NETWORK}"
+#       - "traefik.http.routers.es01-public.rule=Host(`es01.${KIBANA_HOST}`)"
+#       - "traefik.http.routers.es01-public.entrypoints=https-${ES_PORT}"
+#       - "traefik.http.routers.es01-public.tls=true"
+#       - "traefik.http.services.es01-${APP_ID}.loadbalancer.server.port=${ES_PORT}"
+#       - "traefik.http.services.es01-${APP_ID}.loadbalancer.server.scheme=https"
     ulimits:
       memlock:
         soft: -1
