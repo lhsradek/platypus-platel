@@ -20,7 +20,7 @@
     volumes:
       - ./extras/nginx/default-elastic.conf:/etc/nginx/conf.d/default.conf:ro
       - ./extras/nginx/htpasswd:/etc/nginx/conf.d/htpasswd
-      - ./application/html:/var/www/html/work:ro
+      - ./application/html:/var/www/html:ro
       - ./logs/nginx:/var/log/nginx
     labels:
       - "traefik.enable=true"
