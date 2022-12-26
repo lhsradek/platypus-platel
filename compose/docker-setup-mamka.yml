@@ -38,14 +38,10 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
-          "      - es01.${ELASTIC_NETWORK}\n"\
+          "      - ${ELASTIC_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.2\n"\
-          "      - ${ES_IP}\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "      - ${ES_NET}.3\n"\
           "      - ${ES_IP}\n"\
           "  - name: logstash\n"\
           "    dns:\n"\
