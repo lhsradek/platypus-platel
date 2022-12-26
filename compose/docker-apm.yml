@@ -20,7 +20,7 @@
         ipv4_address: ${ES_NET}.10
     # ports:
     #   - ${APM_PORT}:8200
-    #   - 5066:5066
+    #   - ${MONITOR_PORT}:5066
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/hosts/hosts:/etc/hosts
@@ -35,6 +35,7 @@
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/apm-server/certs/ca/ca.crt
       - ES_NET=${ES_NET}
+      - ES_PORT=${ES_PORT}
+      - KIBANA_PORT=${KIBANA_PORT}
       - STAGE=${STAGE}
       - VERIFICATION_MODE=${VERIFICATION_MODE}        
-

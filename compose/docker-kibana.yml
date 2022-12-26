@@ -32,11 +32,13 @@
     environment:
       - APP_NET=${ELASTIC_NETWORK}
       - SERVERNAME=kibana.${ELASTIC_NETWORK}
-      - ELASTICSEARCH_HOSTS=https://es01.${ELASTIC_NETWORK}:9200
+      - ELASTICSEARCH_HOSTS=https://es01.${ELASTIC_NETWORK}:${ES_PORT}
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/certs/ca/ca.crt
       - ES_NET=${ES_NET}
+      - ES_PORT=${ES_PORT}
+      - KIBANA_PORT=${KIBANA_PORT}
       - NODE_OPTIONS=${KIBANA_NODE_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - KIBANA_HOST=${KIBANA_HOST}
@@ -46,14 +48,14 @@
       - "traefik.http.routers.kibana-public.rule=Host(`${KIBANA_HOST}`)"
       - "traefik.http.routers.kibana-public.entrypoints=https"
       - "traefik.http.routers.kibana-public.tls=true"
-      - "traefik.http.services.kibana-${APP_ID}.loadbalancer.server.port=5601"
+      - "traefik.http.services.kibana-${APP_ID}.loadbalancer.server.port=${KIBANA_PORT}"
       - "traefik.http.services.kibana-${APP_ID}.loadbalancer.server.scheme=http"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.6:5601 | grep -q 'HTTP/1.1 302 Found'"]
+      test: ["CMD-SHELL", "curl -s -I http://${ES_NET}.6:${KIBANA_PORT} | grep -q 'HTTP/1.1 302 Found'"]
       interval: 10s
       timeout: 10s
       retries: 500

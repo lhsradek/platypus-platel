@@ -41,6 +41,9 @@
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/filebeat/certs/ca/ca.crt
       - ES_NET=${ES_NET}
+      - ES_PORT=${ES_PORT}
+      - KIBANA_PORT=${KIBANA_PORT}
+      - LOGSTASH_PORT=${LOGSTASH_PORT}
       - LOGSTASH_SERVER_CERT=/usr/share/filebeat/certs/logstash/logstash.crt
       - LOGSTASH_SERVER_CERT_KEY=/usr/share/filebeat/certs/logstash/logstash.key
       - STAGE=${STAGE}

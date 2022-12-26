@@ -23,7 +23,7 @@ monitoring:
 
 # https://www.elastic.co/guide/en/kibana/current/settings.html#elasticsearch-ssl-cert-key
 elasticsearch:
-  hosts: ["https://es01.${APP_NET}:9200"]
+  hosts: ["https://es01.${APP_NET}:${ES_PORT}"]
   requestTimeout: 300000
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"

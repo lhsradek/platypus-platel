@@ -37,15 +37,14 @@ heartbeat.monitors:
   service.name: heartbeat-tcp
   tags: [tcp]
   hosts:
-    - es01.${APP_NET}:9200
-    # - es02.${APP_NET}:9201
-    - logstash.${APP_NET}:9600
-    - kibana.${APP_NET}:5601
+    - es01.${APP_NET}:${ES_PORT}
+    - logstash.${APP_NET}:${LOGSTASH_MONITOR_PORT}
+    - kibana.${APP_NET}:${KIBANA_PORT}
     - work.kibana.${APP_NET}:80
-    - filebeat.${APP_NET}:5066
-    - apm-server.${APP_NET}:5066
-    - heartbeat.${APP_NET}:5066
-    - metricbeat.${APP_NET}:5066
+    - filebeat.${APP_NET}:${MONITOR_PORT}
+    - apm-server.${APP_NET}:${MONITOR_PORT}
+    - heartbeat.${APP_NET}:${MONITOR_PORT}
+    - metricbeat.${APP_NET}:${MONITOR_PORT}
 
 #  - type: icmp
 #   schedule: '*/15 * * * * *'
@@ -73,7 +72,7 @@ processors:
 
 output:
   elasticsearch:
-    hosts: ["https://es01.${APP_NET}:9200"]
+    hosts: ["https://es01.${APP_NET}:${ES_PORT}"]
     protocol: "https"
     username: "${ELASTICSEARCH_USERNAME}"
     password: "${ELASTICSEARCH_PASSWORD}"

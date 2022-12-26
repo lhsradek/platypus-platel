@@ -45,6 +45,7 @@
       - CLUSTER_UUID=${CLUSTER_UUID}
       - ELASTIC_SSL_CERTIFICATEAUTHORITY=/usr/share/logstash/config/certs/ca.crt
       - ES_NET=${ES_NET}
+      - ES_PORT=${ES_PORT}
       - LS_JAVA_OPTS=${LS_JAVA_OPTS}
       - VERIFICATION_MODE=${VERIFICATION_MODE}
       - STACK_VERSION=${STACK_VERSION}
