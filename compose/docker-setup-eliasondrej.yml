@@ -36,6 +36,7 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
+          "      - es01.${ELASTIC_NETWORK}\n"\
           "      - ${ELASTIC_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\

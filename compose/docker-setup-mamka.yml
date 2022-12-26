@@ -38,6 +38,7 @@
           "    dns:\n"\
           "      - localhost\n"\
           "      - es01\n"\
+          "      - es01.${ELASTIC_NETWORK}\n"\
           "      - ${ELASTIC_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
@@ -57,6 +58,7 @@
           "      - localhost\n"\
           "      - kibana\n"\
           "      - kibana.${ELASTIC_NETWORK}\n"\
+          "      - ${KIBANA_HOST}\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
           "      - ${ES_NET}.6\n"\
