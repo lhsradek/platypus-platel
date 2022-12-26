@@ -34,7 +34,7 @@
       - VERIFICATION_MODE=${VERIFICATION_MODE}
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=${DOCKER_NETWORK}"
+      - "traefik.docker.network=${ELASTIC_NETWORK}"
       - "traefik.http.routers.es01-public.rule=Host(`${ELASTIC_HOST}`)"
       - "traefik.http.routers.es01-public.entrypoints=https"
       - "traefik.http.routers.es01-public.tls=true"

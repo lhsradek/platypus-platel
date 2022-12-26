@@ -23,7 +23,7 @@
       - ./logs/nginx:/var/log/nginx
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=${DOCKER_NETWORK}"
+      - "traefik.docker.network=${ELASTIC_NETWORK}"
       - "traefik.http.routers.work-kibana-public.rule=Host(`work.${KIBANA_HOST}`)"
       - "traefik.http.routers.work-kibana-public.entrypoints=https"
       - "traefik.http.routers.work-kibana-public.tls=true"
