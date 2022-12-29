@@ -24,6 +24,7 @@
       - ./extras/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
       - heartbeat:/usr/share/heartbeat
     environment:
+      - APP_ID=${APP_ID}
       - APP_HOST=${APP_HOST}
       - APP_NET=${ELASTIC_NETWORK}
       - CLUSTER_UUID=${CLUSTER_UUID}
