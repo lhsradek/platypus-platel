@@ -52,7 +52,7 @@ output:
   #     verification_mode: "${VERIFICATION_MODE}"
   #   # index: "logs"
   
-se# tup:      
+setup:      
   ilm.overwrite: true
   template.settings:
     index.number_of_shards: 2
