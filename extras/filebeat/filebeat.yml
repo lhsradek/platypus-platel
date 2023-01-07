@@ -39,6 +39,8 @@ output:
     enabled: true                                    # 
     hosts: ["logstash.${APP_NET}:${LOGSTASH_PORT}"]  # 
     index: "logs"                                    # 
+    ssl:
+      enabled: false
                                           
   # for /filebeat -e setup --dashboards:                                          #  
   # elasticsearch:                            
