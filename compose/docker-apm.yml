@@ -22,7 +22,7 @@
     #   - ${APM_PORT}:8200
     #   - ${MONITOR_PORT}:5066
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
       - ./extras/hosts/hosts:/etc/hosts
       - ./certs:/usr/share/apm-server/certs
       - ./extras/apm-server/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro

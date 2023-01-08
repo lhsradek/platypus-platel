@@ -19,8 +19,8 @@
         ipv4_address: ${ES_NET}.9
     user: root
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/log:/hostfs/var/log:ro
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/log:/hostfs/var/log:ro
       - ./extras/hosts/hosts:/etc/hosts
       - ./certs:/usr/share/filebeat/certs
       - ./extras/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
