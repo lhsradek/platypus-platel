@@ -22,6 +22,7 @@
       - /var/run/docker.sock:/var/run/docker.sock
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
       - ./extras/hosts/hosts:/etc/hosts
       - ./certs:/usr/share/metricbeat/certs
       - ./extras/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml

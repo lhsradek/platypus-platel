@@ -5,10 +5,10 @@
   metricsets:
     - container
     - cpu
-    - diskio
-    - event
-    - healthcheck
-    - info
+    #- diskio
+    #- event
+    #- healthcheck
+    #- info
     - memory
     - network
     # - network_summary
