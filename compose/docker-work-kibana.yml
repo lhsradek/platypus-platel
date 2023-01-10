@@ -18,7 +18,7 @@
     hostname: "work.kibana.${ELASTIC_NETWORK}"
     volumes:
       - ./extras/nginx/default-elastic.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./extras/nginx/htpasswd:/etc/nginx/conf.d/htpasswd
+      - ./extras/nginx/htpasswd:/etc/nginx/conf.d/htpasswd:ro
       - ./application/html:/var/www/html:ro
       - ./logs/nginx:/var/log/nginx
     labels:

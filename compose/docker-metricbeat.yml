@@ -23,10 +23,10 @@
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /proc:/hostfs/proc:ro
       - /:/hostfs:ro
-      - ./extras/hosts/hosts:/etc/hosts
-      - ./certs:/usr/share/metricbeat/certs
-      - ./extras/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
-      - ./extras/metricbeat/metricbeat:/root/bin
+      - ./certs:/usr/share/metricbeat/certs:ro
+      - ./extras/hosts/hosts:/etc/hosts:ro
+      - ./extras/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - ./extras/metricbeat/metricbeat:/root/bin:ro
       - ./logs/metricbeat:/usr/share/metricbeat/logs
       - metricbeat:/usr/share/metricbeat
     environment:

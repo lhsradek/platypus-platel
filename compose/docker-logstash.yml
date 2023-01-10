@@ -29,16 +29,15 @@
       # metrics
       # - 9600:9600
     volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock
-      - ./extras/hosts/hosts:/etc/hosts
-      - ./certs/ca/ca.crt:/usr/share/logstash/config/certs/ca.crt
-      - ./certs/logstash/logstash.crt:/usr/share/logstash/config/certs/logstash.crt
-      - ./certs/logstash/logstash.pkcs8.key:/usr/share/logstash/config/certs/logstash.key
-      - ./extras/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
-      - ./extras/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./extras/logstash/beat.conf:/usr/share/logstash/pipeline/beat.conf
-      - ./extras/logstash/syslog-access.conf:/usr/share/logstash/pipeline/syslog-access.conf
-      - ./extras/logstash/syslog-error.conf:/usr/share/logstash/pipeline/syslog-error.conf
+      - ./certs/ca/ca.crt:/usr/share/logstash/config/certs/ca.crt:ro
+      - ./certs/logstash/logstash.crt:/usr/share/logstash/config/certs/logstash.crt:ro
+      - ./certs/logstash/logstash.pkcs8.key:/usr/share/logstash/config/certs/logstash.key:ro
+      - ./extras/hosts/hosts:/etc/hosts:ro
+      - ./extras/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./extras/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./extras/logstash/beat.conf:/usr/share/logstash/pipeline/beat.conf:ro
+      - ./extras/logstash/syslog-access.conf:/usr/share/logstash/pipeline/syslog-access.conf:ro
+      - ./extras/logstash/syslog-error.conf:/usr/share/logstash/pipeline/syslog-error.conf:ro
       - logstash:/usr/share/logstash
     environment:
       - APP_NET=${ELASTIC_NETWORK}
@@ -59,4 +58,4 @@
       interval: 10s
       timeout: 10s
       retries: 500
-        
+

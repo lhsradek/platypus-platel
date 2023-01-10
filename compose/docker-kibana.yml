@@ -20,11 +20,10 @@
     # ports:
     #   - ${KIBANA_PORT}:5601
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./extras/hosts/hosts:/etc/hosts
-      - ./certs:/usr/share/kibana/config/certs
+      - ./extras/hosts/hosts:/etc/hosts:ro
+      - ./certs:/usr/share/kibana/config/certs:ro
+      - ./extras/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
       - ./logs/kibana:/usr/share/kibana/logs
-      - ./extras/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
       - kibana:/usr/share/kibana
     environment:
       - APP_NET=${ELASTIC_NETWORK}
@@ -56,3 +55,4 @@
       interval: 10s
       timeout: 10s
       retries: 500
+

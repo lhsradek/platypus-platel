@@ -19,19 +19,18 @@
         ipv4_address: ${ES_NET}.9
     user: root
     volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock
-      # - /var/log:/hostfs/var/log:ro
-      - ./extras/hosts/hosts:/etc/hosts
-      - ./certs:/usr/share/filebeat/certs
+      - ./extras/hosts/hosts:/etc/hosts:ro
+      - ./certs:/usr/share/filebeat/certs:ro
       - ./extras/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - ./extras/filebeat/filebeat:/root/bin
+      - ./extras/filebeat/filebeat:/root/bin:ro
       - ./logs/filebeat:/usr/share/filebeat/logs
-      - ./logs/apm:/usr/share/filebeat/elogs/apm-server
-      - ./logs/es01:/usr/share/filebeat/elogs/es01
-      - ./logs/kibana:/usr/share/filebeat/elogs/kibana
-      - ./logs/nginx:/usr/share/filebeat/elogs/nginx/default
-      # - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
-      - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik
+      - ./logs/apm:/usr/share/filebeat/elogs/apm-server:ro
+      - ./logs/es01:/usr/share/filebeat/elogs/es01:ro
+      - ./logs/kibana:/usr/share/filebeat/elogs/kibana:ro
+      - ./logs/nginx:/usr/share/filebeat/elogs/nginx/default:ro
+      # - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik:ro
+      - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik:ro
+      # - /var/log:/hostfs/var/log:ro
       - filebeat:/usr/share/filebeat
     environment:
       - APP_ID=${APP_ID}
