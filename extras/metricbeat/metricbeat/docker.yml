@@ -5,7 +5,7 @@
   metricsets:
     - container
     - cpu
-    #- diskio
+    - diskio
     #- event
     #- healthcheck
     #- info
