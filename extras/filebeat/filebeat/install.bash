@@ -18,4 +18,7 @@ cp /root/bin/traefik.yml /usr/share/filebeat/modules.d/traefik.yml
 rm -f /usr/share/filebeat/modules.d/nginx.yml
 rm -f /usr/share/filebeat/modules.d/nginx.yml.disabled
 cp /root/bin/nginx.yml /usr/share/filebeat/modules.d/nginx.yml
+rm -f /usr/share/filebeat/modules.d/system.yml
+rm -f /usr/share/filebeat/modules.d/system.yml.disabled
+cp /root/bin/system.yml /usr/share/filebeat/modules.d/system.yml
 chown root.root /usr/share/filebeat/modules.d/*

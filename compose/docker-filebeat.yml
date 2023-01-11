@@ -30,7 +30,7 @@
       - ./logs/nginx:/usr/share/filebeat/elogs/nginx/default:ro
       # - /root/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik:ro
       - /home/eldy/repos/platypus-box/logs/traefik:/usr/share/filebeat/elogs/traefik:ro
-      # - /var/log:/hostfs/var/log:ro
+      - /var/log:/hostfs/var/log:ro
       - filebeat:/usr/share/filebeat
     environment:
       - APP_ID=${APP_ID}

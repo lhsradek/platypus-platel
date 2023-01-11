@@ -1,0 +1,27 @@
+# Module: system
+# Docs: https://www.elastic.co/guide/en/beats/filebeat/8.5/filebeat-module-system.html
+
+- module: system
+  # Syslog
+  syslog:
+    enabled: false
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    var.paths:
+      # ubuntu
+      - /hostfs/var/log/syslog
+      # fedora
+      # - /hostfs/var/log/messages
+
+  # Authorization logs
+  auth:
+    enabled: true
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    var.paths:
+      # ubuntu
+      - /hostfs/var/log/auth.log
+      # fedora
+      # - /hostfs/var/log/secure
