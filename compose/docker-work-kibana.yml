@@ -9,9 +9,6 @@
           memory: ${MEM_LIMIT}
     restart: ${DOCKER_RESTART_POLICY}
     networks:
-      # for traefik:
-      default:
-      # local
       elastic:
         ipv4_address: ${ES_NET}.20
     container_name: "${APP_ID}-work-kibana"
