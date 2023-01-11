@@ -68,7 +68,8 @@ setup:
   ilm.overwrite: true 
   template.settings:
     index.number_of_shards: 2
-    index.codec: best_compression
+    index.number_of_replicas: 1
+    index.codec: "best_compression"
 
   elasticsearch:
     hosts: ["https://es01.${APP_NET}:${ES_PORT}"]
