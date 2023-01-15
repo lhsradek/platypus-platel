@@ -78,7 +78,7 @@ Creating platel-logstash  ... done
 | elasticsearch        | 9200/tcp, 9300/tcp     | platel-es01        | ```es01.platel```                    |
 | kibana               | 5601/tcp               | platel-kibana      | ```kibana.platel```                  |
 | logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.platel```                |
-| apm-server           | 8200/tcp               | platel-apm-server  | ```apm-server.platel```              |
+| apm-server           | 5066, 8200/tcp         | platel-apm-server  | ```apm-server.platel```              |
 | filebeat             | 5066/tcp               | platel-filebeat    | ```filebeat.platel```                |
 | heartbeat            | 5066/tcp               | platel-heartbbeat  | ```heartbeat.platel```               |
 | metricbeat           | 5066/tcp               | platel-metricbeat  | ```metricbeat.platel```              |
