@@ -62,13 +62,13 @@ Creating platel-logstash  ... done
 
 | REPOSITORY                                            |  TAG       | SIZE        |
 | ----------------------------------------------------- | ---------- | ----------- |
-| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.5.3      | 1.29GB      |
-| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.5.3       | 711MB       |
-| [logstash](https://hub.docker.com/_/logstash)         | 8.5.3      | 740MB       |
-| docker.elastic.co/apm/apm-server                      | 8.5.3      | 148MB       |
-| docker.elastic.co/beats/filebeat                      | 8.5.3      | 282MB       |
-| docker.elastic.co/beats/heartbeat                     | 8.5.3      | 1.88GB      |
-| docker.elastic.co/beats/metricbeat                    | 8.5.3      | 317MB       |
+| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.6.0      | 1.29GB      |
+| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.6.0       | 718MB       |
+| [logstash](https://hub.docker.com/_/logstash)         | 8.6.0      | 747MB       |
+| docker.elastic.co/apm/apm-server                      | 8.6.0      | 122MB       |
+| docker.elastic.co/beats/filebeat                      | 8.6.0      | 287MB       |
+| docker.elastic.co/beats/heartbeat                     | 8.6.0      | 2.04GB      |
+| docker.elastic.co/beats/metricbeat                    | 8.6.0      | 318MB       |
 
 -----
 
@@ -79,9 +79,9 @@ Creating platel-logstash  ... done
 | kibana               | 5601/tcp               | platel-kibana      | ```kibana.platel```                  |
 | logstash             | 5044/tcp, 9600/tcp     | platel-logstash    | ```logstash.platel```                |
 | apm-server           | 8200/tcp               | platel-apm-server  | ```apm-server.platel```              |
-| filebeat             |                        | platel-filebeat    | ```filebeat.platel```                |
-| heartbeat            |                        | platel-heartbbeat  | ```heartbeat.platel```               |
-| metricbeat           |                        | platel-metricbeat  | ```metricbeat.platel```              |
+| filebeat             | 5066/tcp               | platel-filebeat    | ```filebeat.platel```                |
+| heartbeat            | 5066/tcp               | platel-heartbbeat  | ```heartbeat.platel```               |
+| metricbeat           | 5066/tcp               | platel-metricbeat  | ```metricbeat.platel```              |
 
 
 -----
