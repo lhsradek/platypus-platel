@@ -62,13 +62,13 @@ Creating platel-logstash  ... done
 
 | REPOSITORY                                            |  TAG       | SIZE        |
 | ----------------------------------------------------- | ---------- | ----------- |
-| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.6.0      | 1.29GB      |
-| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.6.0       | 718MB       |
-| [logstash](https://hub.docker.com/_/logstash)         | 8.6.0      | 747MB       |
-| docker.elastic.co/apm/apm-server                      | 8.6.0      | 122MB       |
-| docker.elastic.co/beats/filebeat                      | 8.6.0      | 287MB       |
-| docker.elastic.co/beats/heartbeat                     | 8.6.0      | 2.04GB      |
-| docker.elastic.co/beats/metricbeat                    | 8.6.0      | 318MB       |
+| [docker.elastic.co/elasticsearch/elasticsearch](https://hub.docker.com/_/elasticsearch) | 8.6.2      | 1.29GB      |
+| [docker.elastic.co/kibana/kibana](https://hub.docker.com/_/kibana) | 8.6.2       | 727MB       |
+| [logstash](https://hub.docker.com/_/logstash)         | 8.6.2      | 732MB       |
+| docker.elastic.co/apm/apm-server                      | 8.6.2      | 122MB       |
+| docker.elastic.co/beats/filebeat                      | 8.6.2      | 288MB       |
+| docker.elastic.co/beats/heartbeat                     | 8.6.2      | 2.04GB      |
+| docker.elastic.co/beats/metricbeat                    | 8.6.2      | 320MB       |
 
 -----
 
